@@ -1,0 +1,375 @@
+/* Homepage: "the paper trail". The request you start is the first sheet of real paperwork,
+   and the documents it becomes (estimate, sign-off, invoice and receipt) run across the
+   screen beside it. Builds on theme.css + client.css. Motion: transform and opacity only,
+   the --ease-out / --ease-in-out tokens, hover motion only on real pointers, and a
+   fade-only version under prefers-reduced-motion. */
+
+.theme.client.home {
+  --gutter: clamp(16px, 5vw, 72px);
+  --page: 1320px;
+  /* how far the last sheet must reach to run off the right edge of the window */
+  --bleed: calc((100vw - min(100vw, var(--page))) / 2 + var(--gutter) + 160px);
+  --ink-soft: #5F6159;          /* small secondary text: 5:1 on cream, unlike --muted */
+  --sheet-shadow: 0 1px 2px rgba(31, 38, 34, 0.05), 0 16px 32px -22px rgba(31, 38, 34, 0.32);
+  padding: 0 0 24px;
+  overflow-x: clip;             /* the bleeding sheet never causes sideways scrolling */
+  caret-color: var(--green);
+  /* Gil chose Barlow (the wordmark's own family) over the typewriter face for this page.
+     The variable keeps its name so the shared form parts from theme.css and client.css follow. */
+  --mono: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+  --col-gap: clamp(18px, 2.2vw, 36px);
+}
+html:has(> body.home) { scrollbar-color: var(--line) var(--paper); }
+html:has(> body.home) { overflow-x: clip; }   /* body's clip alone doesn't reach the window */
+/* the top-bar links glide to their section (a jump for anyone who asks for less motion),
+   and each section stops a little below the top edge instead of touching it */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(> body.home) { scroll-behavior: smooth; }
+}
+.home-section[id] { scroll-margin-top: 28px; }
+.theme.client.home .wrap { max-width: var(--page); padding: 0 var(--gutter); }
+.theme.client.home .site-footer { max-width: var(--page); padding: 0 var(--gutter); margin-top: 56px; }
+
+.home ::selection { background: var(--green-soft); color: var(--ink); }
+.home a { text-underline-offset: 3px; }
+.home :focus-visible { outline: 2px solid var(--green-2); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Top bar ---------- */
+/* wraps when the wordmark and the menu don't both fit: the menu drops under the logo */
+.home-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding-top: 28px; }
+.theme.client.home .brand-logo { margin: 0; display: block; flex: none; }
+/* once animated, the link is as wide as its widest line ("WE MAKE IT HAPPEN"), not the 170px
+   SVG, so the tagline can never run under the menu */
+.theme.client.home .brand-logo.anim-ready { width: auto; max-width: none; }
+.home-nav { display: flex; gap: 28px; font-family: var(--mono); font-size: 15px; font-weight: 500; white-space: nowrap; }
+.theme.client.home .home-nav a { color: var(--ink-2); text-decoration: none; transition: color 150ms ease; }
+.theme.client.home .home-nav a:hover { color: var(--green); text-decoration: underline; }
+
+/* ---------- Animated wordmark (logo-anim.js). The SVG logo shows until it's ready ---------- */
+.home .brand-logo.anim-ready { display: inline-block; text-decoration: none; }
+.home .brand-logo.anim-ready img { display: none; }
+.logo-anim {
+  position: relative; display: block; color: #141414; /* the SVG logo's ink */
+  font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif; line-height: 1;
+}
+.brand-logo:not(.anim-ready) .logo-anim { position: absolute; visibility: hidden; }
+.logo-anim .row {
+  position: absolute; left: 0; top: 0; display: flex; align-items: center;
+  white-space: pre; line-height: 1; visibility: hidden;
+}
+.logo-anim .row span, .logo-anim .glyph { line-height: 1; white-space: pre; }
+.logo-anim .bar { display: inline-block; width: 0.033em; height: 0.83em; background: currentColor; }
+.logo-anim .glyph { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+.logo-anim .bar-anim { position: absolute; left: 0; top: 0; background: currentColor; transform-origin: center; }
+.logo-anim .logo-hot { position: absolute; top: 0; z-index: 1; }
+
+/* The light / dark switch sits in the nav row (home-dark.css styles the button itself) */
+.home-nav { align-items: center; }
+.theme.client.home .home-nav .theme-toggle { position: static; flex: none; }
+
+/* ---------- Hero ---------- */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px);
+  align-items: end; margin-top: clamp(32px, 4vw, 52px);
+}
+.hero h1 {
+  font-family: var(--mono); font-weight: 600; font-size: clamp(38px, 4.4vw, 64px); line-height: 1.02;
+  letter-spacing: -0.015em; color: var(--ink); margin: 0; text-wrap: balance;
+}
+.hero-lede { font-size: 17px; line-height: 1.6; color: var(--ink-2); margin: 0 0 12px; max-width: 46ch; text-wrap: pretty; }
+.hero-promise { margin: 0; font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--green); }
+
+/* ---------- The trail ---------- */
+.trail {
+  position: relative; margin-top: clamp(28px, 3.4vw, 44px);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--col-gap); row-gap: 0; align-items: start;   /* row-gap 0: the hidden form and result rows add nothing */
+}
+.step-ask { grid-column: 1 / -1; grid-row: 1; }
+.trail > .intake-form { grid-column: 1 / -1; grid-row: 2; }
+.trail > #result { grid-column: 1 / -1; grid-row: 3; }
+.step-price { grid-column: 1; grid-row: 4; }
+.step-sign { grid-column: 2; grid-row: 4; }
+.step-pay { grid-column: 3; grid-row: 4; }
+.trail > .step-example { margin-top: clamp(48px, 5.5vw, 76px); }
+.step-ask .step-caption { max-width: 72ch; }
+.trail-step { margin: 0; min-width: 0; }
+/* the green rule the paperwork runs along: one piece per step, the last out to the window's edge */
+.step-example { position: relative; }
+.step-example::before {
+  content: ''; position: absolute; top: 12px; left: 0; right: calc(-1 * var(--col-gap));
+  border-top: 1px solid var(--green); transform-origin: left center;
+}
+.step-pay::before { right: calc(-1 * var(--bleed)); }
+
+.step-label {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 9px; padding-right: 12px;
+  background: var(--paper); font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--ink);
+}
+.step-n {
+  display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%;
+  background: var(--green); color: var(--on-green); font-size: 13px;
+}
+.step-example .step-n { background: var(--paper); color: var(--green); box-shadow: inset 0 0 0 1px var(--green); }
+.step-caption { margin: 16px 2px 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 36ch; text-wrap: pretty; }
+
+/* A sheet of paper */
+.sheet {
+  margin-top: 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--sheet-shadow); padding: 18px 18px 20px;
+}
+.step-price .sheet { margin-top: 40px; }
+.step-sign .sheet { margin-top: 64px; }
+.step-pay .sheet { margin-top: 40px; }
+/* the last sheet runs past the edge of the window; its contents stay inside the column */
+.sheet-bleed { margin-right: calc(-1 * var(--bleed)); padding-right: calc(var(--bleed) + 18px); border-radius: var(--radius) 0 0 var(--radius); }
+
+.sheet-head {
+  display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; margin-bottom: 14px;
+  border-bottom: 1px dashed var(--line); font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--ink-soft);
+}
+
+/* The four services: the first thing on the page, built to stageshow's rules for controls.
+   - The ring is drawn inside (an inset shadow), so it never adds to the padding.
+   - Words keep a 16px+ inset; the name is trimmed to its capitals, so name and description
+     read as one item, 4px apart, and the name sits optically centred in its space.
+   - Hover turns the whole button racing green (Gil's call), so it plainly reads as clickable.
+   - The chosen service is lifted the way a product marks it (its own green-soft surface,
+     the sheets' raised shadow, the name in green), never outlined to point at it.
+   - A press scales to 0.97; the box keeps its own layer so the label never shifts a pixel. */
+.theme.client.home .service-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0; border: 0;
+}
+.theme.client.home .service {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  min-height: 108px; padding: 20px 18px 16px; margin: 0;
+  background: var(--card); border: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line);
+  text-align: left; color: var(--ink); will-change: transform;
+  transition: background-color 160ms ease, box-shadow 200ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.theme.client.home .service-name {
+  display: block; font-family: var(--mono); font-weight: 600; font-size: 21px; line-height: 1.2; letter-spacing: -0.005em;
+  color: var(--ink); margin-bottom: 6px; text-box: trim-both cap alphabetic;
+}
+.theme.client.home .service-desc { font-size: 14px; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
+.theme.client.home .service-name, .theme.client.home .service-desc { transition: color 160ms ease; }
+.theme.client.home .service:active { transform: scale(0.97); }
+.theme.client.home .service.selected { background: var(--green-soft); box-shadow: var(--sheet-shadow); transform: translateY(-2px); }
+.theme.client.home .service.selected:active { transform: translateY(-2px) scale(0.97); }
+.theme.client.home .service.selected .service-name { color: var(--green); }
+@media (hover: hover) and (pointer: fine) {
+  .theme.client.home .service:hover { background: var(--green); box-shadow: none; }
+  .theme.client.home .service.selected:hover { background: var(--green); box-shadow: var(--sheet-shadow); }
+  .theme.client.home .service:hover .service-name { color: var(--on-green); }
+  .theme.client.home .service:hover .service-desc { color: var(--on-green-muted); }
+}
+.theme.client.home .service-note { margin: 14px 2px 0; color: var(--ink-soft); }
+
+/* Document lines: invoice grammar, dotted leaders and right-aligned figures */
+.doc-title { font-family: var(--mono); font-weight: 600; font-size: 18px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; text-wrap: balance; }
+.doc-line {
+  display: flex; align-items: baseline; gap: 8px; padding: 6px 0;
+  font-family: var(--mono); font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums;
+}
+.doc-line span:first-child { flex: 1; display: flex; gap: 8px; min-width: 0; }
+.doc-line span:first-child::after { content: ''; flex: 1; border-bottom: 1px dotted #BDB9AC; transform: translateY(-4px); min-width: 12px; }
+.doc-line span:last-child { white-space: nowrap; }
+.doc-total { margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--ink); font-weight: 700; color: var(--ink); }
+.doc-total span:first-child::after { display: none; }
+.doc-stamp {
+  display: inline-block; margin-top: 14px; padding: 4px 9px; border: 1px solid var(--green); border-radius: 6px;
+  font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--green);
+}
+.doc-ref { margin: -8px 0 10px; font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+.doc-checks { list-style: none; margin: 0; padding: 0; }
+.doc-checks li { position: relative; padding: 5px 0 5px 22px; font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
+.doc-checks li::before {
+  content: ''; position: absolute; left: 4px; top: 8px; width: 5px; height: 10px;
+  border: solid var(--green); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.doc-sig { margin-top: 18px; padding-top: 8px; border-top: 1px solid var(--ink); font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+
+/* The estimate sheet turns into the paperwork for the chosen service (home.js sets data-service) */
+.est { display: none; }
+.trail[data-service="IT Support"] .est[data-for="IT Support"],
+.trail[data-service="IT Project"] .est[data-for="IT Project"],
+.trail[data-service="Domains"] .est[data-for="Domains"],
+.trail[data-service="Consultancy"] .est[data-for="Consultancy"] {
+  display: block; opacity: 1; transform: none;
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  @starting-style { opacity: 0; transform: translateY(4px); }   /* a transition, so quick re-clicks blend instead of restarting */
+}
+
+/* The form, unrolled beneath the trail */
+.theme.client.home .intake-form {
+  margin-top: 36px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--sheet-shadow); padding: clamp(20px, 2.6vw, 34px);
+}
+.theme.client.home .intake-form .form-title { color: var(--ink-soft); }
+.theme.client.home .field-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 18px; }
+.theme.client.home #supportFields .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.theme.client.home .submit-btn { width: auto; min-width: 260px; padding: 14px 28px; }
+.theme.client.home .trail > #result { margin-top: 28px; }
+/* the form unrolls from its top edge, like paper coming off a roll */
+.theme.client.home .intake-form:not(.hidden) { animation: home-unroll 280ms var(--ease-out); }
+.theme.client.home #result:not(.hidden) { animation: home-rise 280ms var(--ease-out); }
+@keyframes home-unroll { from { clip-path: inset(0 0 100% 0 round var(--radius)); opacity: 0.4; } to { clip-path: inset(0 0 0 0 round var(--radius)); opacity: 1; } }
+/* clicking the chosen service again rolls the form back up: faster than it opened (exits are quicker) */
+.theme.client.home .intake-form.closing { animation: home-rollup 180ms var(--ease-out) forwards; }
+@keyframes home-rollup { to { clip-path: inset(0 0 100% 0 round var(--radius)); opacity: 0; } }
+.theme.client.home .track-link { text-align: left; margin: 26px 0 0; font-size: 14px; }
+
+.theme.client.home .btn-primary { transition: background-color 150ms ease, transform 160ms var(--ease-out); }
+.theme.client.home .btn-primary:active { transform: scale(0.97); }
+
+/* ---------- Sections below the trail ---------- */
+.home-section { margin-top: clamp(72px, 9vw, 120px); }
+.home-section h2 { font-family: var(--mono); font-size: clamp(28px, 2.8vw, 38px); font-weight: 600; line-height: 1.15; color: var(--ink); margin: 0 0 16px; text-wrap: balance; }
+.home-section h3 { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
+.home-section p { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; text-wrap: pretty; }
+
+/* What we work on: the team on the left, the work on the right */
+.work { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.work-intro { position: sticky; top: 32px; }
+.work-intro > p { max-width: 52ch; }
+.certs { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+.certs h3 { font-size: 14px; color: var(--ink-soft); font-weight: 500; margin-bottom: 10px; }
+.certs ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.certs li { display: block; }
+/* codes only, as small stamped tags; the full title is on hover and for screen readers (abbr title) */
+.cert-code { display: inline-block; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--green); text-decoration: none; cursor: help; }
+.skill-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); }
+.skill { padding: 20px 0 24px; border-top: 1px solid var(--line); }
+.skill:nth-child(-n+2) { border-top-color: var(--green); }
+.skill p { font-size: 14.5px; }
+
+/* Prices: one price list, invoice style, beside the private page */
+.pricing { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: stretch; }
+.price-sheet { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--sheet-shadow); padding: clamp(22px, 3vw, 40px); }
+.price-list { margin: 8px 0 0; }
+.price-row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 16px 0; border-bottom: 1px dotted #BDB9AC; }
+.price-row:last-child { border-bottom: 1px solid var(--ink); }
+.price-row dt { font-family: var(--mono); font-weight: 600; font-size: 19px; color: var(--ink); }
+.price-row dt small { display: block; margin-top: 3px; font-family: var(--sans); font-weight: 400; font-size: 14px; color: var(--ink-soft); }
+.price-row dd { margin: 0; text-align: right; font-family: var(--mono); font-weight: 600; font-size: clamp(22px, 2.2vw, 30px); color: var(--green); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price-row dd small { display: block; font-size: 12px; font-weight: 400; color: var(--ink-soft); }
+.home-section .privacy-note { display: flex; gap: 12px; align-items: flex-start; margin-top: 22px; font-size: 14px; }
+.privacy-note svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--green); margin-top: 2px; }
+.privacy-note strong { color: var(--ink); }
+
+.portal-card { background: var(--green); color: var(--on-green); border-radius: var(--radius); padding: clamp(22px, 3vw, 40px); }
+.home-section .portal-title { color: var(--on-green); }
+.home-section .portal-lede { color: var(--on-green-muted); }
+.perk-list { list-style: none; margin: 22px 0 0; padding: 0; }
+.perk-list li { position: relative; padding: 14px 0 14px 30px; border-top: 1px solid rgba(244, 241, 232, 0.16); }
+.perk-list li::before {
+  content: ''; position: absolute; left: 6px; top: 18px; width: 5px; height: 10px;
+  border: solid var(--on-green); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.perk-list strong { display: block; font-family: var(--mono); font-size: 17px; font-weight: 600; color: var(--on-green); margin-bottom: 2px; }
+.perk-list span { display: block; font-size: 14px; line-height: 1.5; color: var(--on-green-muted); }
+
+/* How we write: one plain statement, set large */
+.care { margin-top: clamp(72px, 9vw, 120px); padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--green); border-bottom: 1px solid var(--green); }
+.care-text { margin: 0; max-width: 34ch; font-family: var(--mono); font-weight: 500; font-size: clamp(26px, 3vw, 40px); line-height: 1.25; color: var(--ink); text-wrap: balance; }
+
+/* FAQ */
+.faq-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.faq-intro p { max-width: 36ch; }
+.faq { border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 18px 2px; font-size: 16px; font-weight: 600; color: var(--ink);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: ''; flex-shrink: 0; width: 8px; height: 8px; margin-right: 4px;
+  border: solid var(--green); border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg);
+  transition: transform 200ms var(--ease-out);
+}
+.faq details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.faq details p { padding: 0 2px 18px; max-width: 70ch; }
+.faq details[open] p { animation: home-fade-down 200ms var(--ease-out); }
+@keyframes home-fade-down { from { opacity: 0; transform: translateY(-4px); } }
+
+/* Closing call to action */
+.home-cta {
+  margin-top: clamp(72px, 9vw, 120px); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  background: var(--green); color: var(--on-green); border-radius: var(--radius); padding: clamp(24px, 3.4vw, 44px);
+}
+.home-cta h2 { font-family: var(--mono); font-weight: 600; font-size: clamp(26px, 2.8vw, 36px); margin: 0 0 6px; color: var(--on-green); }
+.home-cta p { margin: 0; font-size: 15px; color: var(--on-green-muted); }
+.theme.client.home .cta-btn { display: inline-block; text-decoration: none; background: var(--on-green); color: var(--green); padding: 14px 24px; border-radius: 7px; }
+.theme.client.home .cta-btn:hover { background: #fff; }
+.home-cta :focus-visible { outline-color: var(--on-green); }
+
+/* Trademark notice: small print under the call to action */
+.tm-note { margin: 18px 2px 0; font-size: 11.5px; line-height: 1.5; color: var(--ink-soft); max-width: 110ch; }
+
+/* ---------- The one authored moment: the paperwork is laid down, left to right ---------- */
+.home .hero, .home .trail-step { animation: home-rise 460ms var(--ease-out) backwards; }
+.home .hero { animation-delay: 40ms; }
+.home .step-ask { animation-delay: 100ms; }
+.home .step-price { animation-delay: 240ms; }
+.home .step-sign { animation-delay: 310ms; }
+.home .step-pay { animation-delay: 380ms; }
+.home .step-example::before { animation: home-draw 600ms var(--ease-in-out) backwards; }
+.home .step-price::before { animation-delay: 260ms; }
+.home .step-sign::before { animation-delay: 380ms; }
+.home .step-pay::before { animation-delay: 500ms; }
+@keyframes home-rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes home-draw { from { transform: scaleX(0); } }
+
+
+/* ---------- Narrower screens ---------- */
+/* Tablet: the request and form full width, the three example sheets in a row beneath */
+@media (max-width: 1099px) {
+  .step-price .sheet, .step-sign .sheet, .step-pay .sheet { margin-top: 16px; }
+  .sheet-bleed { margin-right: 0; padding-right: 22px; border-radius: var(--radius); }
+  .step-pay::before { right: 0; }
+  .theme.client.home .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .hero, .work, .pricing, .faq-wrap { grid-template-columns: 1fr; }
+  .theme.client.home .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work-intro { position: static; }
+  .theme.client.home .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Phone: one column, in reading order */
+@media (max-width: 700px) {
+  /* phones: just the logo and the light/dark switch up top ("Track it here" sits under the request sheet).
+     The animated wordmark sizes itself to the longer tagline, so the row needs the room. */
+  .home-nav a { display: none; }
+  .home-nav { gap: 16px; }
+  .trail > .step-example { margin-top: 0; }
+  .trail { grid-template-columns: 1fr; row-gap: 36px; }
+  .trail > * { grid-column: 1 !important; grid-row: auto !important; }
+  .step-example::before { right: 0; }
+  .theme.client.home .service-grid { grid-template-columns: 1fr; gap: 10px; }
+  .theme.client.home .service { min-height: 0; padding: 16px 16px 14px; }
+  .theme.client.home .service-name { font-size: 19px; margin-bottom: 5px; }
+  .skill-list { grid-template-columns: 1fr; }
+  .skill:nth-child(2) { border-top-color: var(--line); }
+  .theme.client.home .field-grid, .theme.client.home #supportFields .field-grid { grid-template-columns: 1fr; }
+  .theme.client.home .submit-btn { width: 100%; min-width: 0; }
+  .price-row { gap: 12px; }
+  .home-cta { padding: 24px 20px; }
+  .theme.client.home .cta-btn { width: 100%; text-align: center; }
+}
+
+/* ---------- Reduced motion: keep the fades, drop the movement ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .home .hero, .home .trail-step,
+  .theme.client.home .intake-form:not(.hidden), .theme.client.home #result:not(.hidden),
+  .faq details[open] p { animation-name: home-fade !important; }
+  .home .step-example::before { animation: none; }
+  .est { transition-property: opacity; }   /* the swap fades without moving */
+  .theme.client.home .service:active, .theme.client.home .btn-primary:active { transform: none; }
+}
+@keyframes home-fade { from { opacity: 0; } }
+
+/* Small helper text inside the form: darker than --muted so it passes contrast on cream */
+.theme.client.home .intake-form .form-title-note,
+.theme.client.home .intake-form small,
+.theme.client.home .prio-remove { color: var(--ink-soft); }

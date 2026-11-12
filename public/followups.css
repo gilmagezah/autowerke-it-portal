@@ -1,0 +1,144 @@
+/* Follow-ups: a payments register in the style of a check ledger */
+.fu-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+
+.fu-search {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.fu-search svg { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
+.theme .fu-search input { border: none; background: transparent; padding: 9px 0; width: 100%; font-size: 14px; box-shadow: none; }
+
+.fu-new { display: inline-flex; align-items: center; gap: 6px; }
+.fu-new svg { width: 14px; height: 14px; }
+
+/* Register */
+.fu-register { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); overflow: hidden; }
+
+.fu-head, .fu-row {
+  display: grid;
+  grid-template-columns: 88px 100px minmax(160px, 1fr) 160px 20px 112px minmax(170px, 230px);
+  gap: 12px;
+  align-items: start;
+  padding: 0 18px;
+}
+
+.fu-head {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 11px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fu-row { padding-top: 13px; padding-bottom: 13px; border-bottom: 1px solid var(--line-soft); }
+.fu-row:nth-child(even) { background: rgba(236, 232, 220, 0.35); }
+.fu-row:last-child { border-bottom: none; }
+.fu-row.paid { color: var(--muted); }
+.fu-row.paid .fu-company, .fu-row.paid .fu-amount { color: var(--muted); }
+
+.fu-c { text-align: center; }
+.fu-r { text-align: right; }
+
+.fu-date { font-family: var(--mono); font-size: 13px; color: var(--ink-2); }
+.fu-flag { font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+.fu-flag.overdue { color: var(--red); }
+.fu-flag.today { color: var(--amber); }
+.fu-flag.upcoming { color: var(--muted); }
+
+.fu-ref { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 1px; word-break: break-all; }
+.fu-company { font-family: var(--mono); font-weight: 700; font-size: 14.5px; color: var(--ink); }
+.fu-note { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; }
+.fu-note .fu-sent { color: var(--green); }
+
+.fu-rem { font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.fu-rem .fu-next { color: var(--muted); font-size: 11px; margin-top: 3px; }
+.fu-rem.off { color: var(--muted); }
+
+.fu-check { text-align: center; font-size: 15px; color: var(--green); padding-top: 1px; }
+.fu-check .dot { color: var(--line); }
+
+.fu-amount { font-family: var(--mono); font-weight: 700; font-size: 14.5px; text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Wrap onto a second line rather than ever being clipped */
+.fu-actions { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+.fu-actions button[data-act=delete] { padding: 5px 7px; color: var(--muted); }
+.fu-actions button[data-act=delete]:hover { color: var(--red); border-color: #E7C2BB; }
+.fu-actions button {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-2);
+  border-radius: 6px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.fu-actions button:hover { border-color: var(--green-2); color: var(--green); }
+.fu-actions button.primary { background: var(--green); border-color: var(--green); color: var(--on-green); }
+.fu-actions button.primary:hover { background: var(--green-hover); color: var(--on-green); }
+
+.fu-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 4px;
+}
+
+/* Editor */
+.fu-editor { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; }
+.fu-editor h2 { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 14px; color: var(--ink-2); }
+.fu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 14px; }
+.fu-grid .wide { grid-column: span 3; }
+.fu-grid .two { grid-column: span 2; }
+.fu-field { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.theme .fu-field input, .theme .fu-field select, .theme .fu-field textarea { padding: 8px 10px; font-size: 14px; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.fu-source { background: var(--green-soft); border: 1px dashed #B9C9B5; border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; }
+.fu-reminder { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+.fu-reminder-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.fu-toggle { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-2); padding-bottom: 8px; }
+.fu-toggle input { accent-color: var(--green); width: 16px; height: 16px; }
+.fu-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.fu-editor-actions { display: flex; gap: 10px; align-items: center; margin-top: 16px; }
+
+/* Composer modal */
+.fu-modal { position: fixed; inset: 0; background: rgba(31, 38, 34, 0.42); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
+.fu-modal.hidden { display: none; }
+.fu-dialog { background: var(--card); border-radius: 12px; width: min(640px, 100%); max-height: 90vh; overflow: auto; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); }
+.fu-dialog-head { background: var(--green); color: var(--on-green); padding: 16px 20px; border-radius: 12px 12px 0 0; }
+.fu-dialog-head h2 { font-family: var(--mono); font-size: 18px; margin: 0; color: var(--on-green); }
+.fu-dialog-head div { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-green-muted); margin-top: 3px; }
+.fu-dialog-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+.fu-dialog-foot { display: flex; gap: 10px; align-items: center; justify-content: flex-end; padding: 0 20px 18px; }
+
+@media (max-width: 1100px) {
+  .fu-head { display: none; }
+  .fu-row { grid-template-columns: 1fr auto; row-gap: 6px; }
+  .fu-row > * { grid-column: auto; }
+  .fu-actions { grid-column: 1 / -1; justify-content: flex-start; }
+}
+@media (max-width: 700px) {
+  .fu-grid { grid-template-columns: 1fr; }
+  .fu-grid .wide, .fu-grid .two { grid-column: auto; }
+}

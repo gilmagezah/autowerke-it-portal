@@ -1,0 +1,151 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4f5f7;
+  color: #1c1e21;
+  margin: 0;
+  padding: 40px 16px;
+}
+
+.wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+h1 { font-size: 22px; margin-bottom: 4px; }
+.sub { color: #666; margin-top: 0; margin-bottom: 24px; font-size: 14px; }
+
+.choice-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.choice {
+  flex: 1;
+  padding: 20px 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: #fafafa;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.choice:hover { border-color: #999; }
+.choice.selected { border-color: #2563eb; background: #eef4ff; }
+
+form label {
+  display: block;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 14px;
+}
+
+form input, form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+button[type="submit"]:disabled { background: #9db8e8; cursor: not-allowed; }
+
+.hidden { display: none; }
+
+#result {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+#result.success { background: #eafaf0; color: #1a7a3f; }
+#result.error { background: #fdeeee; color: #a12727; }
+
+/* Keep the line breaks people type (pricing lines, scope summaries, etc.) */
+.preserve-lines { white-space: pre-line; }
+
+/* "Project Closed — date" badge */
+.closed-badge {
+  display: inline-block;
+  background: #eafaf0;
+  color: #1a7a3f;
+  border: 1px solid #b7e4c7;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+/* ---------- Brand ---------- */
+/* Size lives on the link (a real block width); the image just fills it.
+   (A % max-width on the image inside a shrink-to-fit link is circular and shrinks it.) */
+.brand-logo {
+  display: block;
+  width: 170px;
+  max-width: 60%;
+  margin-bottom: 22px;
+}
+
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Site footer (client pages) ---------- */
+.site-footer {
+  max-width: 560px;
+  margin: 28px auto 8px;
+  padding: 0 16px;
+  font-size: 13px;
+  color: #141414;
+}
+
+.sf-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.sf-logo { width: 140px; height: auto; display: block; }
+.sf-divider { width: 2px; align-self: stretch; background: #141414; min-height: 52px; }
+.sf-contact { display: flex; flex-direction: column; line-height: 1.55; }
+.sf-contact a { color: #141414; text-decoration: none; }
+.sf-contact a:hover { text-decoration: underline; }
+.sf-muted { color: #5A5A5A; }
+.sf-tagline { margin-top: 12px; font-size: 12px; color: #5A5A5A; }
+.sf-copy { margin-top: 6px; font-size: 11px; color: #999; }
+
+@media (max-width: 420px) {
+  .sf-divider { display: none; }
+}
+
+/* Support billing summary (client portal) */
+.bill-table { width: 100%; max-width: 360px; border-collapse: collapse; margin: 16px 0 20px; font-size: 14px; }
+.bill-table td { padding: 5px 0; color: #444; }
+.bill-table td:last-child { text-align: right; color: #141414; font-variant-numeric: tabular-nums; }
+.bill-table .bill-total td { border-top: 1px solid #141414; padding-top: 9px; font-weight: 700; color: #141414; }
+
+/* Signed-estimate steps (client portal) */
+.estimate-steps { background: #f4f5f7; border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 14px; }
+.estimate-steps p { margin: 0 0 6px; }
+.estimate-steps ol { margin: 0; padding-left: 20px; }

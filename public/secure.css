@@ -1,0 +1,22 @@
+/* Secure pages: admin sign-in + client online sign-off */
+.theme.client .secure-wrap { max-width: 460px; }
+.secure-card { background: var(--card); border: 1px solid var(--line-soft); border-radius: 12px; padding: 24px 24px 18px; }
+.secure-head { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+.secure-head svg { width: 34px; height: 34px; color: var(--green); flex-shrink: 0; }
+.theme.client .secure-head h1 { font-family: var(--mono); font-size: 21px; margin: 0; }
+.secure-head .band-sub { color: var(--muted); }
+.theme.client .secure-btn { width: 100%; margin-top: 6px; }
+.secure-msg { min-height: 20px; font-size: 13.5px; color: var(--red); margin: 12px 0 0; }
+.secure-msg.ok { color: var(--green); }
+.secure-foot { text-align: center; font-size: 12px; color: var(--muted); margin-top: 14px; }
+.theme.client #codeStep .link-btn { display: block; margin: 10px auto 0; }
+
+/* One box per character */
+.code-boxes { display: flex; gap: 8px; justify-content: center; margin: 16px 0 18px; }
+.theme.client .code-boxes input {
+  width: 46px; height: 56px; margin: 0; padding: 0; text-align: center;
+  font-family: var(--mono); font-size: 24px; font-weight: 700; text-transform: uppercase;
+  background: var(--paper); border: 2px solid var(--line); border-radius: 9px; color: var(--ink);
+}
+.theme.client .code-boxes input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(47, 74, 59, .15); background: #fff; }
+@media (max-width: 480px) { .theme.client .code-boxes input { width: 36px; height: 48px; font-size: 20px; } .code-boxes { gap: 5px; } }

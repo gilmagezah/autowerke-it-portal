@@ -1,0 +1,5 @@
+# Keep LF line endings everywhere (the app deploys to Linux); binaries are left alone
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary

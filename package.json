@@ -1,0 +1,30 @@
+{
+  "name": "autowerke-it-portal",
+  "version": "1.0.0",
+  "description": "Client portal and back office for an IT consultancy: intake, AI-drafted scopes, quotes, delivery, e-sign-off, invoices and receipts.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "demo": "node demo/start.js",
+    "test": "node tests/run-all.js",
+    "test-email": "node scripts/test-email.js",
+    "check-joins": "node scripts/check-joins.js",
+    "sample-pdfs": "node scripts/sample-pdfs.js",
+    "sample-emails": "node scripts/sample-emails.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "compression": "^1.8.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.22.3",
+    "multer": "^2.5.0",
+    "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.20.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "private": true
+}

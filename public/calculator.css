@@ -1,0 +1,83 @@
+/* Calculator accessory (calculator.js): the LCD, keys and history.
+   The window around it (green body, top strip, pin/close) is in accessories.css.
+   The .calc-key styles are shared: the support timer uses the same chunky keys. */
+
+/* LCD */
+.calc-lcd {
+  position: relative; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;
+  width: 100%; height: 66px; margin: 0 0 10px; padding: 6px 10px 6px;
+  background: linear-gradient(180deg, #B9C4A2 0%, #C9D2B3 100%);
+  border: 0; border-radius: 8px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .28) inset, 0 0 0 2px #22382B, 0 1px 0 2px rgba(255, 255, 255, .08);
+  color: #1E2A1F; font-family: var(--mono); text-align: right; cursor: copy; overflow: hidden;
+}
+.calc-lcd:focus-visible { outline: 2px solid var(--green-bright); outline-offset: 3px; }
+.calc-label { min-height: 14px; max-width: 100%; font-size: 11px; line-height: 14px; color: #4C5C45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; direction: rtl; }
+.calc-value { max-width: 100%; font-size: 27px; font-weight: 700; line-height: 34px; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; direction: rtl; font-variant-numeric: tabular-nums; }
+/* "direction: rtl" keeps the newest digits visible; this stops it reordering the text */
+.calc-label, .calc-value { unicode-bidi: plaintext; }
+.calc-value[data-size="m"] { font-size: 21px; }
+.calc-value[data-size="s"] { font-size: 16px; }
+.calc-value[data-size="xs"] { font-size: 13px; }
+.calc-value.err { font-size: 17px; letter-spacing: .02em; }
+.calc-flash {
+  position: absolute; left: 10px; top: 7px; font-size: 9px; font-weight: 700; letter-spacing: .16em; color: #2F4A3B; opacity: 0;
+}
+.calc-flash.show { animation: calc-flash 1.1s var(--ease-out); }
+@keyframes calc-flash { 12%, 70% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Keys (shared with the support timer) */
+.calc-body { position: relative; }
+.calc-vat { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 7px; }
+.calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.calc-key {
+  height: 38px; padding: 0; margin: 0;
+  font-family: var(--mono); font-size: 17px; font-weight: 700; line-height: 1;
+  background: var(--card); color: var(--ink);
+  border: 0; border-radius: 7px;
+  box-shadow: 0 3px 0 #BDB6A2, 0 4px 6px rgba(0, 0, 0, .18);
+  cursor: pointer;
+  transition: transform .06s var(--ease-out), box-shadow .06s var(--ease-out);
+}
+.calc-key.fn { background: #DCD6C5; color: var(--ink-2); font-size: 15px; box-shadow: 0 3px 0 #A9A28E, 0 4px 6px rgba(0, 0, 0, .18); }
+.calc-key.op { background: #567A64; color: var(--on-green); font-size: 19px; box-shadow: 0 3px 0 #1F3328, 0 4px 6px rgba(0, 0, 0, .2); }
+.calc-key.eq { background: #C27A1E; color: #FFF8EC; font-size: 19px; box-shadow: 0 3px 0 #7E4D10, 0 4px 6px rgba(0, 0, 0, .2); }
+.calc-key.vat { height: 28px; font-size: 11px; letter-spacing: .1em; background: #22382B; color: var(--on-green); box-shadow: 0 2px 0 #13211A, 0 3px 5px rgba(0, 0, 0, .2); }
+.calc-key:active, .calc-key.pressed { transform: translateY(3px); box-shadow: 0 0 0 transparent, 0 1px 2px rgba(0, 0, 0, .2); }
+.calc-key.vat:active, .calc-key.vat.pressed { transform: translateY(2px); }
+.calc-key:focus-visible { outline: 2px solid var(--green-bright); outline-offset: 2px; }
+.calc-key[disabled] { opacity: .55; cursor: not-allowed; }
+.calc-key[disabled]:active { transform: none; }
+
+/* History: slides over the keypad */
+.calc-history {
+  position: absolute; inset: 0 0 -6px; display: flex; flex-direction: column; /* -6px covers the keys' 3D edge */
+  background: #F1EDE1; color: var(--ink); border-radius: 8px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .12) inset;
+  animation: calc-hist-in .18s var(--ease-out);
+}
+.calc-history.hidden { display: none; }
+@keyframes calc-hist-in { from { opacity: 0; transform: translateY(6px); } }
+.calc-history-head {
+  display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.calc-link { background: none; border: 0; padding: 2px 4px; font: inherit; color: var(--red); cursor: pointer; letter-spacing: .12em; }
+.calc-link:focus-visible { outline: 2px solid var(--green-bright); outline-offset: 1px; border-radius: 3px; }
+.calc-history ol { list-style: none; margin: 0; padding: 4px; overflow-y: auto; flex: 1; overscroll-behavior: contain; }
+.calc-hist-item {
+  display: block; width: 100%; padding: 6px 8px; text-align: right;
+  background: none; border: 0; border-radius: 6px; cursor: pointer; font-family: var(--mono); color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) { .calc-hist-item:hover { background: var(--green-soft); } }
+.calc-hist-item:focus-visible { outline: 2px solid var(--green-bright); outline-offset: -2px; }
+.calc-hist-expr { display: block; font-size: 10.5px; color: var(--muted); overflow-wrap: anywhere; }
+.calc-hist-result { display: block; font-size: 14px; font-weight: 700; }
+.calc-empty { padding: 18px 10px; font-family: var(--sans); font-size: 12px; color: var(--muted); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .calc-history { animation: none; }
+  .calc-key { transition: none; }
+  .calc-key:active, .calc-key.pressed { transform: none; }
+}

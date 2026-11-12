@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Secure sign-off — AutoWerke | IT</title>
+  <link rel="icon" href="/brand/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/brand/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/client.css">
+  <link rel="stylesheet" href="/secure.css">
+  <link rel="stylesheet" href="/signoff.css">
+</head>
+<body class="theme client">
+  <!-- Step 1 + 2: verify -->
+  <main class="wrap secure-wrap" id="verifyView">
+    <a href="/" class="brand-logo"><img src="/brand/autowerke-it-logo-light.svg" alt="AutoWerke | IT" width="160"></a>
+    <div class="secure-card">
+      <div class="secure-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><h1>Secure sign-off</h1><div class="band-sub">Step <span id="stepNo">1</span> of 2 · confirm it's you</div></div>
+      </div>
+
+      <form id="idForm" novalidate>
+        <p class="so-lede">Enter the details you gave us when you made your request.</p>
+        <label>Ticket / project reference<input type="text" id="ref" placeholder="e.g. TANNER-7KQ-4X9" autocomplete="off" spellcheck="false" required></label>
+        <label>Email<input type="email" id="email" autocomplete="email" required></label>
+        <div class="field-grid">
+          <label>Your name<input type="text" id="name" autocomplete="name" required></label>
+          <label>Phone number<input type="tel" id="phone" autocomplete="tel"></label>
+        </div>
+        <button type="submit" class="btn-confirm secure-btn" id="idBtn">Email me a code</button>
+      </form>
+
+      <div id="codeStep" class="hidden">
+        <p class="so-lede" id="codeMsg"></p>
+        <div id="codeBoxes"></div>
+        <button type="button" class="btn-confirm secure-btn" id="codeBtn">Open my sign-off</button>
+        <button type="button" class="link-btn" id="resend">Didn't get it? Start again</button>
+      </div>
+      <p class="secure-msg" id="msg" role="alert"></p>
+    </div>
+    <p class="secure-foot">Your code expires in 10 minutes. Once it's entered, your sign-off session lasts 30 minutes.</p>
+  </main>
+
+  <!-- Step 3: the sign-off document -->
+  <div id="docView" class="so-layout hidden">
+    <aside class="so-side">
+      <img src="/brand/autowerke-it-logo-light.svg" alt="AutoWerke | IT" width="150">
+      <nav class="so-nav" id="soNav"></nav>
+      <div class="so-timer" id="soTimer">
+        <div class="so-timer-label">Secure session</div>
+        <div class="so-timer-value" id="soLeft">30:00</div>
+        <div class="so-timer-bar"><div id="soBar"></div></div>
+      </div>
+      <button type="button" class="link-btn so-leave" id="leave">Leave and sign later</button>
+    </aside>
+    <main class="so-main" id="soMain"></main>
+  </div>
+
+  <!-- Done -->
+  <main class="wrap so-done hidden" id="doneView"></main>
+
+  <script src="/phone.js"></script>
+  <script src="/code-input.js"></script>
+  <script src="/signoff.js"></script>
+  <script src="/consent.js"></script>
+</body>
+</html>

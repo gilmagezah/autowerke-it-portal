@@ -1,0 +1,156 @@
+/* Homepage dark mode (a trial; theme-mode.js sets data-theme="dark" on <html>).
+   Same brand, lights off: the paper turns into a deep green-black, the paper colour becomes the
+   text, and racing green stays the hero colour (header band, private-portal card, closing call
+   to action, step numbers), with a faint green glow at the top of the page.
+   Racing green is too dark to read as text on a dark page, so links, icons and figures use a
+   lighter sage (--green-ink) instead. Bright green stays for selected states only. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;     /* native controls, scrollbars and dropdowns go dark too */
+
+  --paper: #111814;
+  --card: #18211C;
+  --sidebar: #141C17;
+  --line: #2C3832;
+  --line-soft: #222C26;
+  --ink: #ECE8DC;
+  --ink-2: #C4C2B6;
+  --muted: #8E9488;
+
+  --green: #2F4A3B;
+  --green-hover: #3A5A48;
+  --green-2: #6E9A7E;
+  --green-soft: #1E3027;
+  --green-ink: #8FC495;   /* green for text and icons on dark surfaces */
+  --on-green: #F4F1E8;
+  --on-green-muted: #B9C7BB;
+
+  --amber: #D9A35A;  --amber-soft: #2E2416;
+  --red: #E07B6E;    --red-soft: #331B1A;
+}
+
+/* ---------- Page ---------- */
+[data-theme="dark"] body.theme {
+  background:
+    radial-gradient(900px 420px at 50% -160px, rgba(91, 163, 94, 0.13), transparent 70%),
+    var(--paper);
+  background-repeat: no-repeat;
+}
+[data-theme="dark"] .logo-anim { color: var(--ink); }
+[data-theme="dark"] .theme.client .band { box-shadow: inset 0 0 0 1px rgba(143, 196, 149, 0.16); }
+[data-theme="dark"] .theme.client a,
+[data-theme="dark"] .theme.client .link-btn { color: var(--green-ink); }
+
+/* ---------- Service cards ---------- */
+[data-theme="dark"] .theme.client .service svg { color: var(--green-ink); }
+[data-theme="dark"] .theme.client .service.selected {
+  background: var(--green-soft); border-color: var(--green-bright); box-shadow: inset 0 0 0 1px var(--green-bright);
+}
+[data-theme="dark"] .theme.client .service.selected .service-name { color: var(--on-green); }
+@media (hover: hover) and (pointer: fine) {
+  [data-theme="dark"] .theme.client.home .service:hover { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); }
+}
+[data-theme="dark"] .trust-strip li { color: var(--green-ink); }
+
+/* ---------- Form ---------- */
+[data-theme="dark"] .theme input[type=text], [data-theme="dark"] .theme input[type=email],
+[data-theme="dark"] .theme input[type=tel], [data-theme="dark"] .theme select, [data-theme="dark"] .theme textarea,
+[data-theme="dark"] .theme.client .phone-wrap select.phone-cc {
+  background: #0E1411; border-color: var(--line); color: var(--ink);
+}
+[data-theme="dark"] .theme input::placeholder, [data-theme="dark"] .theme textarea::placeholder { color: #6A7068; }
+[data-theme="dark"] .theme input:focus, [data-theme="dark"] .theme select:focus, [data-theme="dark"] .theme textarea:focus {
+  border-color: var(--green-ink); box-shadow: 0 0 0 3px rgba(143, 196, 149, 0.16);
+}
+[data-theme="dark"] .theme.client label.radio input,
+[data-theme="dark"] .theme.client form label.consent-check input { accent-color: var(--green-bright); }
+[data-theme="dark"] .theme.client label.shot-drop { background: #0E1411; border-color: #3A4A40; }
+[data-theme="dark"] .theme.client label.shot-drop:hover,
+[data-theme="dark"] .theme.client label.shot-drop.over { background: var(--green-soft); border-color: var(--green-ink); }
+[data-theme="dark"] .shot-drop svg, [data-theme="dark"] .prio-num { color: var(--green-ink); }
+[data-theme="dark"] .shot { background: #0E1411; }
+[data-theme="dark"] .theme.client .result.success { color: var(--green-ink); border-color: #2E4A39; }
+[data-theme="dark"] .theme.client .result.error { border-color: #5A2A26; }
+[data-theme="dark"] .theme.client .btn-changes { background: transparent; }
+
+/* ---------- Sections ---------- */
+[data-theme="dark"] .skill { border-top-color: var(--green-2); }
+[data-theme="dark"] .why-figure,
+[data-theme="dark"] .privacy-note svg { color: var(--green-ink); }
+[data-theme="dark"] .faq summary::after { border-color: var(--green-ink); }
+[data-theme="dark"] .faq summary:focus-visible { outline-color: var(--green-ink); }
+[data-theme="dark"] .portal-card,
+[data-theme="dark"] .home-cta { box-shadow: 0 0 0 1px rgba(143, 196, 149, 0.14), 0 18px 50px -20px rgba(91, 163, 94, 0.35); }
+
+/* ---------- Footer + cookie bar ---------- */
+[data-theme="dark"] .site-footer, [data-theme="dark"] .theme.client .sf-contact a { color: var(--ink); }
+[data-theme="dark"] .theme.client .sf-divider { background: var(--green-2); }
+[data-theme="dark"] .sf-muted, [data-theme="dark"] .sf-tagline { color: var(--muted); }
+[data-theme="dark"] .sf-copy { color: #6A7068; }
+[data-theme="dark"] .consent-bar { box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5); }
+
+/* ---------- The light / dark switch (top right) ---------- */
+.client-wrap { position: relative; }
+.theme-toggle {
+  position: absolute; top: -6px; right: 0; width: 38px; height: 38px; padding: 0;
+  display: grid; place-items: center; border-radius: 50%; cursor: pointer;
+  background: var(--card); border: 1px solid var(--line); color: var(--ink-2);
+  transition: border-color 150ms ease, color 150ms ease, transform 160ms var(--ease-out);
+}
+.theme-toggle.hidden, .theme-toggle[hidden] { display: none; }
+.theme-toggle:active { transform: scale(0.94); }
+.theme-toggle:focus-visible { outline: 2px solid var(--green-2); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover { border-color: var(--green-2); color: var(--green); }
+  [data-theme="dark"] .theme-toggle:hover { color: var(--green-ink); }
+}
+/* Both icons sit in the same spot; the one not in use turns away and shrinks */
+.theme-toggle svg {
+  grid-area: 1 / 1; width: 18px; height: 18px;
+  transition: opacity 200ms var(--ease-out), transform 300ms var(--ease-out);
+}
+.theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+[data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
+[data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: none; }
+
+/* The cross-fade between themes (View Transitions, where supported) */
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: 240ms; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle svg { transition: opacity 150ms ease; }
+  .theme-toggle .icon-sun, [data-theme="dark"] .theme-toggle .icon-moon { transform: none; }
+  .theme-toggle:active { transform: none; }
+}
+
+/* ---------- The paper trail (homepage layout) ----------
+   Racing green disappears on a dark page, so the trail rule, sheet edges and stamps use the
+   lighter greens; sheets keep a deeper shadow so they still read as paper laid on the desk. */
+[data-theme="dark"] .theme.client.home {
+  --ink-soft: #A3A79B;
+  --sheet-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 36px -22px rgba(0, 0, 0, 0.7);
+}
+[data-theme="dark"] .step-example::before { border-top-color: var(--green-2); }
+[data-theme="dark"] .step-example .step-n { color: var(--green-ink); box-shadow: inset 0 0 0 1px var(--green-2); }
+[data-theme="dark"] .hero-promise,
+[data-theme="dark"] .cert-code,
+[data-theme="dark"] .price-row dd,
+[data-theme="dark"] .doc-stamp { color: var(--green-ink); }
+[data-theme="dark"] .doc-stamp { border-color: var(--green-ink); }
+[data-theme="dark"] .doc-checks li::before { border-color: var(--green-ink); }
+[data-theme="dark"] .doc-line span:first-child::after,
+[data-theme="dark"] .price-row { border-bottom-color: #3A4740; }
+[data-theme="dark"] .price-row:last-child { border-bottom-color: var(--ink-2); }
+[data-theme="dark"] .theme.client.home .service.selected .service-name { color: var(--green-ink); }
+/* the chosen service is lifted, never outlined: its own surface and a deeper shadow */
+[data-theme="dark"] .theme.client.home .service.selected { box-shadow: var(--sheet-shadow); }
+@media (hover: hover) and (pointer: fine) {
+  /* hover turns the button racing green, as in light mode, with light text on it */
+  [data-theme="dark"] .theme.client.home .service:hover { background: var(--green); box-shadow: var(--sheet-shadow); }
+  [data-theme="dark"] .theme.client.home .service:hover .service-name { color: var(--on-green); }
+  [data-theme="dark"] .theme.client.home .service:hover .service-desc { color: var(--on-green-muted); }
+}
+[data-theme="dark"] .skill:nth-child(-n+2),
+[data-theme="dark"] .care { border-color: var(--green-2); }
+[data-theme="dark"] .home-nav a:hover { color: var(--green-ink); }

@@ -1,0 +1,206 @@
+/* Homepage: the information sections below the request form, and the page's motion.
+   Builds on theme.css + client.css. Motion follows one rule set: transform and opacity
+   only, the --ease-out / --ease-in-out tokens, hover motion only on real pointers, and a
+   gentler fade-only version under prefers-reduced-motion. */
+
+/* ---------- At-a-glance strip ---------- */
+.trust-strip { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 18px; padding: 0; }
+.trust-strip li {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: var(--green);
+  background: var(--green-soft); border-radius: 999px; padding: 5px 11px;
+}
+
+/* ---------- Animated wordmark (logo-anim.js). The SVG logo shows until it's ready ---------- */
+.home .brand-logo.anim-ready { display: inline-block; text-decoration: none; }
+.home .brand-logo.anim-ready img { display: none; }
+.logo-anim {
+  position: relative; display: block; color: #141414; /* the SVG logo's ink */
+  font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif; line-height: 1;
+}
+.brand-logo:not(.anim-ready) .logo-anim { position: absolute; visibility: hidden; }
+.logo-anim .row {
+  position: absolute; left: 0; top: 0; display: flex; align-items: center;
+  white-space: pre; line-height: 1; visibility: hidden;
+}
+.logo-anim .row span, .logo-anim .glyph { line-height: 1; white-space: pre; }
+.logo-anim .bar { display: inline-block; width: 0.033em; height: 0.83em; background: currentColor; }
+.logo-anim .glyph { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+.logo-anim .bar-anim { position: absolute; left: 0; top: 0; background: currentColor; transform-origin: center; }
+.logo-anim .logo-hot { position: absolute; top: 0; z-index: 1; }
+
+/* ---------- Service cards: press feedback + a small lift on real pointers ---------- */
+.theme.client.home .service {
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out);
+}
+.theme.client.home .service:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .theme.client.home .service:hover { box-shadow: 0 6px 18px rgba(31, 38, 34, 0.07); }
+  .theme.client.home .service:hover svg { transform: translateY(-1px); }
+}
+.theme.client.home .service svg { transition: transform 160ms var(--ease-out); }
+
+/* Buttons confirm the press */
+.theme.client.home .btn-primary { transition: background-color 150ms ease, transform 160ms var(--ease-out); }
+.theme.client.home .btn-primary:active { transform: scale(0.97); }
+
+/* The form arrives (it was display:none, so this plays each time it appears) */
+.theme.client.home .intake-form:not(.hidden) { animation: home-rise 260ms var(--ease-out); }
+.theme.client.home #result:not(.hidden) { animation: home-rise 260ms var(--ease-out); }
+
+/* ---------- Page entrance: a short stagger, played once ---------- */
+.home .enter { animation: home-rise 420ms var(--ease-out) backwards; }
+.home .brand-logo.enter { animation-delay: 0ms; }
+.home .client-band.enter { animation-delay: 50ms; }
+.home .client-lede.enter { animation-delay: 100ms; }
+.home .trust-strip.enter { animation-delay: 150ms; }
+.home .service-grid .service { animation: home-rise 420ms var(--ease-out) backwards; }
+.home .service-grid .service:nth-child(1) { animation-delay: 200ms; }
+.home .service-grid .service:nth-child(2) { animation-delay: 250ms; }
+.home .service-grid .service:nth-child(3) { animation-delay: 300ms; }
+.home .service-grid .service:nth-child(4) { animation-delay: 350ms; }
+
+@keyframes home-rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* ---------- Sections ---------- */
+.home-section { margin-top: 56px; }
+.section-kicker {
+  font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.home-section h2 { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--ink); margin: 6px 0 20px; line-height: 1.25; }
+.home-section h3 { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--ink); margin: 0 0 4px; }
+.home-section p { font-size: 14px; line-height: 1.55; color: var(--ink-2); margin: 0; }
+
+/* How it works: numbered steps joined by a rule that draws itself on reveal */
+.steps { list-style: none; margin: 0; padding: 0; position: relative; }
+.steps::before {
+  content: ''; position: absolute; left: 21px; top: 22px; bottom: 22px; width: 2px; background: var(--green-soft);
+}
+.step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; padding: 0 0 22px; position: relative; }
+.step:last-child { padding-bottom: 0; }
+.step-num {
+  display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--green); color: var(--on-green); font-family: var(--mono); font-weight: 700; font-size: 14px; position: relative; z-index: 1;
+}
+.step h3 { margin-top: 3px; }
+
+/* Specialisms */
+.skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.skill { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px 18px; border-top: 3px solid var(--green); }
+.skill p { font-size: 13.5px; }
+
+/* Why us */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+.why { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px; }
+.why-figure { font-family: var(--mono); font-weight: 700; font-size: 22px; color: var(--green); margin-bottom: 8px; white-space: nowrap; }
+.why-figure small { font-size: 12px; color: var(--muted); margin-left: 4px; font-weight: 400; }
+.why p { font-size: 13.5px; }
+/* The private portal: one card, its perks in a 2x2 grid */
+.portal-card { background: var(--green); color: var(--on-green); border-radius: 12px; padding: 20px 22px 22px; }
+.home-section .portal-card h3 { color: var(--on-green); font-size: 17px; }
+.home-section .portal-head p { color: var(--on-green-muted); font-size: 14px; }
+.perk-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.perk-grid li {
+  position: relative; background: rgba(244, 241, 232, 0.07); border: 1px solid rgba(244, 241, 232, 0.14);
+  border-radius: 8px; padding: 12px 14px 12px 38px;
+}
+.perk-grid li::before {
+  content: ''; position: absolute; left: 16px; top: 15px; width: 5px; height: 10px;
+  border: solid var(--on-green); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.perk-grid strong { display: block; font-family: var(--mono); font-size: 13.5px; color: var(--on-green); margin-bottom: 2px; }
+.perk-grid span { display: block; font-size: 13px; line-height: 1.45; color: var(--on-green-muted); }
+
+/* Data privacy: a quieter closing line under the portal card */
+.home-section .privacy-note {
+  display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 14px 16px;
+  border: 1px solid var(--line); border-radius: var(--radius); font-size: 13.5px;
+}
+.privacy-note svg { flex-shrink: 0; width: 22px; height: 22px; color: var(--green); margin-top: 1px; }
+.privacy-note strong { color: var(--ink); }
+
+/* FAQ */
+.faq { border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 15px 2px; font-size: 15px; font-weight: 600; color: var(--ink);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: ''; flex-shrink: 0; width: 8px; height: 8px; margin-right: 4px;
+  border: solid var(--green); border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg);
+  transition: transform 200ms var(--ease-out);
+}
+.faq details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.faq summary:focus-visible { outline: 2px solid var(--green-2); outline-offset: 2px; border-radius: 4px; }
+.faq details p { padding: 0 2px 16px; }
+.faq details[open] p { animation: home-fade-down 200ms var(--ease-out); }
+@keyframes home-fade-down { from { opacity: 0; transform: translateY(-4px); } }
+
+/* Closing call to action */
+.home-cta {
+  margin-top: 56px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  background: var(--green); color: var(--on-green); border-radius: 12px; padding: 24px 26px;
+}
+.home-cta h2 { font-family: var(--mono); font-size: 20px; margin: 0 0 4px; color: var(--on-green); }
+.home-cta p { margin: 0; font-size: 14px; color: var(--on-green-muted); }
+.theme.client.home .cta-btn {
+  display: inline-block; text-decoration: none; background: var(--on-green); color: var(--green);
+  padding: 12px 20px; border-radius: 7px;
+}
+.theme.client.home .cta-btn:hover { background: #fff; }
+
+/* Trademark notice: small print under the call to action */
+.tm-note { margin: 18px 2px 0; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+
+/* ---------- Scroll reveal (home.js adds .reveal only to groups below the fold) ---------- */
+.reveal-group.reveal:not(.home-cta) > * { opacity: 0; transform: translateY(12px); }
+.reveal-group.reveal.home-cta { opacity: 0; transform: translateY(12px); }
+.reveal-group.shown:not(.home-cta) > *, .reveal-group.shown.home-cta {
+  opacity: 1; transform: none;
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+.reveal-group.shown > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-group.shown > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-group.shown > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-group.shown > *:nth-child(5) { transition-delay: 240ms; }
+.reveal-group.shown > *:nth-child(6) { transition-delay: 300ms; }
+
+/* The steps' joining rule draws from top to bottom */
+.steps.reveal::before { clip-path: inset(0 0 100% 0); }
+.steps.shown::before { clip-path: inset(0 0 0 0); transition: clip-path 900ms var(--ease-in-out) 150ms; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 560px) {
+  .skill-grid, .why-grid, .perk-grid { grid-template-columns: 1fr; }
+  .home-section { margin-top: 44px; }
+  .home-cta { padding: 22px 20px; }
+  .theme.client.home .cta-btn { width: 100%; text-align: center; }
+}
+
+/* ---------- Reduced motion: keep the fades, drop the movement ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .home .enter, .home .service-grid .service,
+  .theme.client.home .intake-form:not(.hidden), .theme.client.home #result:not(.hidden),
+  .faq details[open] p { animation-name: home-fade; }
+  .reveal-group.reveal:not(.home-cta) > *, .reveal-group.reveal.home-cta { transform: none; }
+  .steps.reveal::before { clip-path: none; }
+  .theme.client.home .service:active, .theme.client.home .btn-primary:active { transform: none; }
+  .theme.client.home .service:hover svg { transform: none; }
+}
+@keyframes home-fade { from { opacity: 0; } }
+
+/* ---------- Switch back to the new homepage (top right, beside the light/dark switch) ---------- */
+.view-switch {
+  position: absolute; top: 3px; right: 52px;
+  font-family: var(--mono); font-size: 13px; color: var(--ink-2); text-decoration: none;
+  padding: 4px 2px; border-bottom: 1px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.view-switch:focus-visible { outline: 2px solid var(--green-2); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .view-switch:hover { color: var(--green); border-bottom-color: var(--green-2); }
+}
+[data-theme="dark"] .view-switch { color: var(--ink-2); }
+/* phones: the animated wordmark's tagline needs this row, as on the new homepage */
+@media (max-width: 480px) { .view-switch { display: none; } }

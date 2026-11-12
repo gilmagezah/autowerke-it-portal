@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Secrets: real keys live only in .env (see .env.example for the placeholders)
+.env
+.env.*
+!.env.example
+
+# Claude Code: per-machine settings, and the skill links (Windows junctions back to .agents/skills)
+.claude/settings.local.json
+.claude/skills/
+
+# Logs, OS and editor clutter
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Test and PDF scratch output
+coverage/
+*.tmp
+
+# Sample PDFs for design review (npm run sample-pdfs)
+sample-pdfs/
+
+# Sample emails for design review (npm run sample-emails)
+sample-emails/

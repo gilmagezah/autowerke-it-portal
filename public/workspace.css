@@ -1,0 +1,95 @@
+/* ---------- Launcher (inside the admin shell) ---------- */
+.ws-start { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.ws-start .fu-field { flex: 1; min-width: 220px; }
+.theme .ws-start input { font-family: var(--mono); font-size: 16px; text-transform: uppercase; padding: 11px 12px; }
+.ws-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.ws-tile { display: block; background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 14px 16px; text-decoration: none; color: var(--ink); }
+.ws-tile:hover { border-color: var(--green-2); }
+.ws-tile .ref { font-family: var(--mono); font-weight: 700; color: var(--green); }
+.ws-tile .t { font-size: 14px; margin: 4px 0; }
+.ws-tile .m { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+/* ---------- The workspace (its own tab, focus layout) ---------- */
+body.theme.ws-mode { padding: 0; }
+.ws-mode .admin-wrap { max-width: none; padding: 0; }
+.ws-top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: var(--green); color: var(--on-green); padding: 12px 22px; }
+.ws-top img { height: 22px; filter: invert(1) brightness(1.6); opacity: .9; }
+.ws-top .ws-ref { font-family: var(--mono); font-weight: 700; font-size: 15px; }
+.ws-top .ws-title { font-size: 14px; color: var(--on-green-muted); max-width: 420px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ws-top .grow { flex: 1; }
+.ws-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(244,241,232,.1); border: 1px solid rgba(244,241,232,.2); border-radius: 999px; padding: 6px 12px; font-family: var(--mono); font-size: 13px; }
+.ws-chip strong { font-size: 15px; }
+.ws-chip .quip { color: var(--on-green-muted); font-size: 11.5px; }
+.ws-top button { background: rgba(244,241,232,.1); border: 1px solid rgba(244,241,232,.25); color: var(--on-green); border-radius: 7px; padding: 7px 11px; font-family: var(--mono); font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.ws-top button:hover { background: rgba(244,241,232,.2); }
+
+.ws-env { display: flex; align-items: center; gap: 10px; padding: 9px 22px; background: #FFF4D6; border-bottom: 1px solid #EBD9A6; font-family: var(--mono); font-size: 13px; color: #5C3F06; }
+.ws-env strong { letter-spacing: .1em; font-size: 11px; }
+.ws-env input { flex: 1; max-width: 520px; background: transparent; border: 1px dashed #D9C27E; border-radius: 6px; padding: 5px 9px; font-family: var(--mono); font-size: 14px; font-weight: 700; color: #3D2A03; }
+.ws-env.empty { background: var(--red-soft); border-color: #E7C2BB; color: var(--red); }
+
+.ws-body { display: grid; grid-template-columns: 230px minmax(0, 1fr) 300px; min-height: calc(100vh - 100px); }
+.ws-rail { border-right: 1px solid var(--line); background: var(--sidebar); padding: 16px 12px; }
+.ws-rail a { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 7px; color: var(--ink-2); text-decoration: none; font-size: 13.5px; cursor: pointer; }
+.ws-rail a:hover { background: rgba(47,74,59,.06); }
+.ws-rail a.on { background: var(--card); color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(31,38,34,.06); }
+.ws-rail .n { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.ws-rail .locked { opacity: .45; cursor: not-allowed; }
+.ws-main { padding: 22px 26px 60px; min-width: 0; }
+.ws-side { border-left: 1px solid var(--line); background: var(--card); padding: 18px 18px 40px; font-size: 13.5px; }
+.ws-side h4 { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
+.ws-side h4:first-child { margin-top: 0; }
+.ws-side .kv { margin: 3px 0; overflow-wrap: anywhere; }
+.ws-side .kv span { color: var(--muted); }
+
+.ws-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.ws-h h2 { font-family: var(--mono); font-size: 20px; margin: 0; color: var(--ink); }
+.ws-add { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Notes canvas */
+.ws-canvas-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.ws-canvas-tools .saved { margin-left: auto; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.theme .ws-canvas { width: 100%; min-height: 60vh; resize: vertical; padding: 20px 22px; font-family: var(--mono); font-size: 14.5px; line-height: 1.7; background: #FFFEFA; border: 1px solid var(--line); border-radius: 10px;
+  background-image: repeating-linear-gradient(transparent, transparent calc(1.7em - 1px), #EFEBDF calc(1.7em - 1px), #EFEBDF 1.7em); background-attachment: local; }
+.ws-focus { position: fixed; inset: 0; z-index: 60; background: #FFFEFA; padding: 4vh 10vw; display: flex; flex-direction: column; }
+.ws-focus .bar { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.theme .ws-focus textarea { flex: 1; border: none; background: transparent; font-family: var(--mono); font-size: 17px; line-height: 1.8; outline: none; box-shadow: none; resize: none; }
+
+/* Item cards */
+.ws-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.ws-item { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 14px 16px; position: relative; }
+.ws-item.flag { border-color: var(--red); } /* an even outline, no side bar */
+.ws-item .k { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.ws-item h3 { font-family: var(--mono); font-size: 15px; margin: 3px 0 8px; color: var(--ink); overflow-wrap: anywhere; }
+.ws-item .f { display: grid; grid-template-columns: 110px 1fr; gap: 6px; font-size: 13px; padding: 3px 0; }
+.ws-item .f span:first-child { color: var(--muted); font-family: var(--mono); font-size: 11.5px; padding-top: 1px; }
+.ws-item .f span:last-child { overflow-wrap: anywhere; white-space: pre-wrap; }
+.ws-item .secret code { background: var(--paper); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; user-select: all; }
+.ws-item .acts { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.ws-item .acts button, .ws-item .acts a { font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); background: var(--card); color: var(--ink-2); border-radius: 6px; padding: 5px 8px; cursor: pointer; text-decoration: none; }
+.ws-item .acts button:hover, .ws-item .acts a:hover { border-color: var(--green-2); color: var(--green); }
+.ws-pill { display: inline-block; font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: var(--green-soft); color: var(--green); margin-left: 6px; }
+.ws-pill.red { background: var(--red-soft); color: var(--red); } .ws-pill.amber { background: var(--amber-soft); color: #6B430B; }
+.ws-check { list-style: none; padding: 0; margin: 4px 0 0; }
+.ws-check li { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; font-size: 13.5px; }
+.ws-check li.done span { text-decoration: line-through; color: var(--muted); }
+.ws-check input { accent-color: var(--green); margin-top: 3px; }
+.ws-progress { height: 4px; background: var(--line-soft); border-radius: 2px; margin: 6px 0 4px; overflow: hidden; }
+.ws-progress div { height: 100%; background: var(--green); }
+
+/* Editor modal (reuses the follow-ups dialog look) */
+.ws-form .fu-grid { grid-template-columns: 1fr 1fr; }
+.ws-form textarea { min-height: 90px; }
+.ws-check-edit { display: flex; gap: 6px; margin-bottom: 6px; }
+.ws-check-edit input[type=text] { flex: 1; }
+@media (max-width: 1150px) { .ws-body { grid-template-columns: 200px minmax(0, 1fr); } .ws-side { display: none; } }
+@media (max-width: 760px) { .ws-body { grid-template-columns: 1fr; } .ws-rail { display: flex; overflow-x: auto; gap: 4px; border-right: none; border-bottom: 1px solid var(--line); } .ws-rail a { white-space: nowrap; } }
+
+/* Checklist editor rows. An older "form input { width:100% }" rule would otherwise stretch the
+   checkbox and squash the text box to nothing. */
+.ws-form .ws-check-edit { align-items: center; }
+.ws-form .ws-check-edit input[type=checkbox] { flex: 0 0 18px; width: 18px; height: 18px; margin: 0; padding: 0; accent-color: var(--green); }
+.ws-form .ws-check-edit input[type=text] { flex: 1; width: auto; min-width: 0; margin: 0; padding: 8px 10px; font-size: 14px; }
+.ws-form .ws-check-edit .link-btn { flex: 0 0 auto; padding: 4px 6px; }
+.ws-from-req { display: flex; align-items: center; gap: 12px; background: var(--green-soft); border: 1px dashed #B9C9B5; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; font-size: 13.5px; }
+.ws-from-req .grow { flex: 1; }

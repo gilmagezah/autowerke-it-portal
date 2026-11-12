@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoWerke | IT — How can we help?</title>
+  <meta name="description" content="IT support, projects, domains and consultancy from a small Microsoft-certified team. The price is agreed in writing before any work starts.">
+  <link rel="icon" href="/brand/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/brand/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="/brand/autowerke-icon-light.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/client.css">
+  <link rel="stylesheet" href="/home.css?v=trail9">
+  <link rel="stylesheet" href="/home-dark.css?v=trail9">
+  <script src="/theme-mode.js"></script>
+</head>
+<body class="theme client home">
+  <main class="wrap client-wrap">
+    <div class="home-top">
+      <a href="/" class="brand-logo"><img src="/brand/autowerke-it-logo-light.svg" alt="AutoWerke | IT" width="170" data-logo></a>
+      <nav class="home-nav" aria-label="On this page">
+        <a href="#work">What we work on</a>
+        <a href="#pricing">Prices</a>
+        <a href="/track">Track a request</a>
+        <a href="/classic" class="view-switch">Classic view</a>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Dark mode" aria-pressed="false" title="Light / dark" hidden>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+        </button>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <h1 id="askTitle">What do you need help with?</h1>
+      <div class="hero-side">
+        <p class="hero-lede">Pick a service and tell us what's going on. We'll come back with a written price before any work starts, and every step after that lands on your own private page.</p>
+        <p class="hero-promise">Nothing is charged until you agree</p>
+      </div>
+    </header>
+
+    <div class="trail" id="trail" data-service="IT Support">
+      <section class="trail-step step-ask" aria-labelledby="askTitle">
+        <div class="service-grid" id="choiceGroup">
+          <button type="button" class="choice service" data-value="IT Support">
+            <span class="service-name">IT Support</span>
+            <span class="service-desc">Something broken or not working right. Billed hourly.</span>
+          </button>
+          <button type="button" class="choice service" data-value="IT Project">
+            <span class="service-name">IT Project</span>
+            <span class="service-desc">Planned work with a clear scope and a fixed price.</span>
+          </button>
+          <button type="button" class="choice service" data-value="Domains">
+            <span class="service-name">Domains</span>
+            <span class="service-desc">Register a new domain, or have us manage existing ones.</span>
+          </button>
+          <button type="button" class="choice service" data-value="Consultancy">
+            <span class="service-name">Consultancy</span>
+            <span class="service-desc">Advice on a challenge, a decision, or your IT direction. Often free.</span>
+          </button>
+        </div>
+        <p id="supportRateNote" class="service-note hidden">IT Support is billed hourly at US$50–$75/hour (excl. VAT) depending on complexity.</p>
+        <p class="step-caption">Describe it in your own words. Screenshots, or a text file with the error, help for support issues.</p>
+      </section>
+
+      <form id="intakeForm" class="intake-form hidden" novalidate>
+        <input type="hidden" id="requestType" name="requestType">
+        <div class="form-title" id="formTitle">Your details</div>
+
+        <div class="field-grid">
+          <label>Name<input type="text" id="name" required autocomplete="given-name"></label>
+          <label>Surname<input type="text" id="surname" autocomplete="family-name"></label>
+          <div class="company-field">
+            <label>Company<input type="text" id="companyName" required autocomplete="organization"></label>
+            <button type="button" class="link-btn site-add" id="addWebsite" aria-controls="websiteField" aria-expanded="false">+ Website</button>
+            <label class="site-field hidden" id="websiteField">Company website <small>optional</small><input type="url" id="companyWebsite" inputmode="url" autocomplete="url" maxlength="200" placeholder="yourcompany.co.zw"></label>
+          </div>
+          <label>Position<input type="text" id="position" autocomplete="organization-title"></label>
+          <label>Email<input type="email" id="email" required autocomplete="email"></label>
+          <label>Phone<input type="tel" id="phone" autocomplete="tel"></label>
+        </div>
+
+        <div id="domainFields" class="hidden">
+          <div class="form-title">Domains</div>
+          <div class="radio-row">
+            <label class="radio"><input type="radio" name="domainService" value="register" checked> Register new domain(s)</label>
+            <label class="radio"><input type="radio" name="domainService" value="manage"> Manage my existing domain(s)</label>
+          </div>
+          <div id="domainRows"></div>
+          <button type="button" class="link-btn" id="addDomain">+ Add another domain</button>
+        </div>
+
+        <p id="consultNote" class="service-note hidden">Many consultations are free. If yours needs paid time, we'll tell you the fee first, and nothing is charged unless you agree.</p>
+        <label id="detailsLabel"><span id="detailsText">Tell us what you need</span>
+          <textarea id="details" rows="6" placeholder="Describe your support issue or project requirements in as much detail as you can."></textarea>
+        </label>
+
+        <div id="supportFields" class="hidden">
+          <div class="field-grid">
+            <label>How many users are affected?<input type="text" id="usersAffected" placeholder="e.g. 1, or the whole finance team"></label>
+            <label>How many devices are affected?<input type="text" id="devicesAffected" placeholder="e.g. 1 laptop, or 5 desktops"></label>
+          </div>
+          <label>What have you already tried?<textarea id="attemptsTaken" rows="3" placeholder="e.g. Restarted the device, reset the password, reinstalled the app..."></textarea></label>
+
+          <div class="prio-block">
+            <button type="button" class="link-btn" id="addPriority">+ Add priority level</button>
+            <div id="priorityPanel" class="prio-panel hidden">
+              <div class="form-title">Can you still work at all?</div>
+              <div class="radio-row">
+                <label class="radio"><input type="radio" name="canWork" value="yes"> Yes, just about</label>
+                <label class="radio"><input type="radio" name="canWork" value="no"> No, I'm stuck</label>
+              </div>
+              <div id="sliderWrap" class="hidden">
+                <div class="prio-head"><span class="prio-num" id="prioNum">P1</span><span class="prio-label" id="prioLabel"></span></div>
+                <input type="range" id="prioRange" min="1" max="3" step="1" value="1" aria-label="Priority level">
+                <div class="prio-scale" id="prioScale"></div>
+              </div>
+              <button type="button" class="link-btn prio-remove" id="removePriority">Remove priority</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="shotFields" class="hidden">
+          <div class="form-title">Screenshots &amp; files <span class="form-title-note">optional · up to 4</span></div>
+          <label class="shot-drop" id="shotDrop">
+            <input type="file" id="shotInput" accept="image/png,image/jpeg,image/gif,image/webp,text/plain,.txt,.log" multiple hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-7.5 8"/></svg>
+            <span><strong>Add screenshots or a text file</strong> or drop them here<br><small>PNG, JPG, GIF or WebP up to 5 MB · error messages, logs or code as .txt or .log up to 1 MB</small></span>
+          </label>
+          <div class="shot-grid" id="shotGrid"></div>
+          <p class="shot-error" id="shotError"></p>
+        </div>
+
+        <label class="consent-check"><input type="checkbox" id="agreeTerms"> <span>I've read and agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>, <a href="/service-terms" target="_blank" rel="noopener">Service Terms</a> and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+        <button type="submit" id="submitBtn" class="btn-primary submit-btn">Submit request</button>
+      </form>
+
+      <div id="result" class="hidden"></div>
+
+      <figure class="trail-step step-example step-price">
+        <div class="step-label"><span class="step-n">2</span>We price it</div>
+        <div class="sheet sheet-doc">
+          <div class="est" data-for="IT Support">
+            <div class="sheet-head"><span>Estimate</span><span>Example</span></div>
+            <div class="doc-title">Outlook won't sign in</div>
+            <div class="doc-ref">Ref YOURCO-7KQ-4X9</div>
+            <div class="doc-line"><span>Find the fault</span><span>0.5 h</span></div>
+            <div class="doc-line"><span>Fix and test</span><span>1.0 h</span></div>
+            <div class="doc-line"><span>Rate</span><span>US$60/h</span></div>
+            <div class="doc-line doc-total"><span>Excl. VAT</span><span>US$90.00</span></div>
+          </div>
+          <div class="est" data-for="IT Project">
+            <div class="sheet-head"><span>Quote</span><span>Example</span></div>
+            <div class="doc-title">Move 12 mailboxes to Microsoft 365</div>
+            <div class="doc-ref">Ref YOURCO-7KQ-4X9</div>
+            <div class="doc-line"><span>Plan and prepare</span><span>Phase 1</span></div>
+            <div class="doc-line"><span>Move mailboxes</span><span>Phase 2</span></div>
+            <div class="doc-line"><span>Test and hand over</span><span>Phase 3</span></div>
+            <div class="doc-line doc-total"><span>Price</span><span>Fixed</span></div>
+          </div>
+          <div class="est" data-for="Domains">
+            <div class="sheet-head"><span>Domain quote</span><span>Example</span></div>
+            <div class="doc-title">yourbusiness.co.zw</div>
+            <div class="doc-ref">Ref YOURCO-7KQ-4X9</div>
+            <div class="doc-line"><span>Registration</span><span>1 year</span></div>
+            <div class="doc-line"><span>DNS and email</span><span>Set up</span></div>
+            <div class="doc-line"><span>Renewal reminder</span><span>Yes</span></div>
+            <div class="doc-line doc-total"><span>Price</span><span>Quoted first</span></div>
+          </div>
+          <div class="est" data-for="Consultancy">
+            <div class="sheet-head"><span>Written answer</span><span>Example</span></div>
+            <div class="doc-title">Should we manage our laptops with Intune?</div>
+            <div class="doc-ref">Ref YOURCO-7KQ-4X9</div>
+            <div class="doc-line"><span>Your question</span><span>Answered</span></div>
+            <div class="doc-line"><span>Your options</span><span>Plain words</span></div>
+            <div class="doc-line"><span>Meeting</span><span>If wanted</span></div>
+            <div class="doc-line doc-total"><span>Fee</span><span>Often free</span></div>
+          </div>
+          <div class="doc-stamp">Agreed in writing</div>
+        </div>
+        <figcaption class="step-caption">You get a written scope, estimate or quote by email. Nothing happens until you confirm.</figcaption>
+      </figure>
+
+      <figure class="trail-step step-example step-sign">
+        <div class="step-label"><span class="step-n">3</span>We do it, you sign off</div>
+        <div class="sheet sheet-doc">
+          <div class="sheet-head"><span>Sign-off</span><span>Example</span></div>
+          <div class="doc-title">Work complete</div>
+            <div class="doc-ref">Ref YOURCO-7KQ-4X9</div>
+          <ul class="doc-checks">
+            <li>Working again on every device</li>
+            <li>Cause found and explained</li>
+            <li>Advice so it doesn't happen again</li>
+          </ul>
+          <div class="doc-sig"><span>Signed online, securely and in minutes</span></div>
+        </div>
+        <figcaption class="step-caption">Your private page always shows whose move it is. Approve the finished work online.</figcaption>
+      </figure>
+
+      <figure class="trail-step step-example step-pay">
+        <div class="step-label"><span class="step-n">4</span>Invoice and receipt</div>
+        <div class="sheet sheet-doc sheet-bleed">
+          <div class="sheet-head"><span>Invoice</span><span>Example</span></div>
+          <div class="doc-title">Paid, thank you</div>
+            <div class="doc-ref">Ref YOURCO-7KQ-4X9</div>
+          <div class="doc-line"><span>Invoice</span><span>AW-INV-0007</span></div>
+          <div class="doc-line"><span>Receipt</span><span>Emailed</span></div>
+          <div class="doc-stamp">Receipt issued</div>
+        </div>
+        <figcaption class="step-caption">The invoice arrives by email with payment details. A receipt follows once payment is recorded.</figcaption>
+      </figure>
+    </div>
+
+    <p class="track-link"><a href="/track">Already sent a request? Track it here</a></p>
+
+    <!-- ---------- What we work on ---------- -->
+    <section class="home-section work" id="work" aria-labelledby="skillsTitle">
+      <div class="work-intro">
+        <h2 id="skillsTitle">Modern workplace IT, done properly</h2>
+        <p>We're a small team with a background in large organisations: many users, devices and servers, from day-to-day administration to training people in person. Every client gets that same care, whether it's one laptop or a whole office.</p>
+        <div class="certs">
+          <h3>A small team with Microsoft certifications, including</h3>
+          <ul>
+            <li><abbr class="cert-code" title="Identity and Access Administrator Associate">SC-300</abbr></li>
+            <li><abbr class="cert-code" title="Azure Security Engineer Associate">AZ-500</abbr></li>
+            <li><abbr class="cert-code" title="Microsoft 365 Fundamentals">MS-900</abbr></li>
+          </ul>
+        </div>
+      </div>
+      <div class="skill-list">
+        <article class="skill">
+          <h3>Microsoft 365</h3>
+          <p>Exchange Online, Teams, SharePoint and OneDrive: set-up, migrations, licensing and day-to-day admin.</p>
+        </article>
+        <article class="skill">
+          <h3>Intune &amp; devices</h3>
+          <p>Enrol and manage laptops and phones, push apps and updates, and help keep devices in line with your policies.</p>
+        </article>
+        <article class="skill">
+          <h3>Entra ID &amp; identity</h3>
+          <p>Users, groups, multi-factor sign-in and Conditional Access, so the right people get the right access.</p>
+        </article>
+        <article class="skill">
+          <h3>Security hardening</h3>
+          <p>Tighten up what attackers usually try first: weak sign-ins, unpatched machines and over-shared files.</p>
+        </article>
+        <article class="skill">
+          <h3>Domains &amp; email delivery</h3>
+          <p>Register and renew domains, and set up DNS, SPF, DKIM and DMARC to help your email reach inboxes.</p>
+        </article>
+        <article class="skill">
+          <h3>Support &amp; troubleshooting</h3>
+          <p>When something breaks, we track down the cause, put it right where we can, and explain how to stop it happening again.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ---------- Prices + the private page ---------- -->
+    <section class="home-section pricing" id="pricing" aria-labelledby="priceTitle">
+      <div class="price-sheet">
+        <h2 id="priceTitle">Clear prices, before anything starts</h2>
+        <dl class="price-list">
+          <div class="price-row"><dt>IT Support<small>You approve an estimate first</small></dt><dd>US$50–$75<small>per hour, excl. VAT</small></dd></div>
+          <div class="price-row"><dt>IT Projects<small>After a written scope you agree. Extra work is quoted separately</small></dt><dd>Fixed<small>price</small></dd></div>
+          <div class="price-row"><dt>Domains<small>Quoted before we register anything</small></dt><dd>Quoted<small>first</small></dd></div>
+          <div class="price-row"><dt>Consultancy<small>If it needs paid time, you're told the fee first</small></dt><dd>Often<small>free</small></dd></div>
+        </dl>
+        <p class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>
+          <span><strong>Your data stays private.</strong> Files are kept in private storage, we never sell your information, and our <a href="/privacy">Privacy Policy</a> explains exactly how we handle it.</span>
+        </p>
+      </div>
+      <div class="portal-card">
+        <h2 class="portal-title">Your private page</h2>
+        <p class="portal-lede">Every request gets its own private link, with everything in one place.</p>
+        <ul class="perk-list">
+          <li><strong>Live status</strong><span>Where things stand, and whose move it is next.</span></li>
+          <li><strong>Your documents</strong><span>Scopes, estimates and quotes, ready to review.</span></li>
+          <li><strong>Online sign-off</strong><span>Approve finished work with a one-time code.</span></li>
+          <li><strong>A clear record</strong><span>A sign-off certificate of what was agreed and delivered.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ---------- How we write ---------- -->
+    <section class="care" aria-label="How we work">
+      <p class="care-text">We write everything down in plain language, and check it before it reaches you. We know what it's like to be on the confused end of technical jargon.</p>
+    </section>
+
+    <!-- ---------- FAQ ---------- -->
+    <section class="home-section faq-wrap" aria-labelledby="faqTitle">
+      <div class="faq-intro">
+        <h2 id="faqTitle">Good to know</h2>
+        <p>Something else on your mind? Send a Consultancy request. It's often free.</p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>What happens after I submit a request?</summary>
+          <p>You'll get an email with your reference number and a link to your private page. We review the request and reply there with next steps, an estimate or a quote.</p>
+        </details>
+        <details>
+          <summary>Will I be charged without agreeing first?</summary>
+          <p>No. Support work starts once you've approved an estimate, projects once you've accepted a fixed price, and paid consultations only after you've agreed the fee.</p>
+        </details>
+        <details>
+          <summary>My issue is urgent. How do I flag it?</summary>
+          <p>On an IT Support request, choose <em>Add priority level</em> and tell us whether you can still work. Higher priorities are looked at first.</p>
+        </details>
+        <details>
+          <summary>Do you work with clients outside Zimbabwe?</summary>
+          <p>Yes. We're based in Harare and most Microsoft 365, Intune and Entra ID work can be done remotely, so we can help wherever you are.</p>
+        </details>
+        <details>
+          <summary>How do I pay?</summary>
+          <p>You'll receive an invoice by email with payment details and a payment reference. A receipt follows once payment is recorded.</p>
+        </details>
+        <details>
+          <summary>How do I check on a request I've already sent?</summary>
+          <p>Use the link in your confirmation email, or <a href="/track">track it with your reference number</a>.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ---------- Closing call to action ---------- -->
+    <section class="home-cta" aria-label="Start a request">
+      <div>
+        <h2>Ready when you are</h2>
+        <p>Pick a service at the top of the page. It takes about two minutes.</p>
+      </div>
+      <a href="#choiceGroup" class="btn-primary cta-btn" id="ctaStart">Start a request</a>
+    </section>
+
+    <p class="tm-note">Microsoft, Microsoft 365, Exchange Online, Teams, SharePoint, OneDrive, Intune and Entra ID are trademarks of the Microsoft group of companies. AutoWerke | IT is an independent IT provider and is not affiliated with, or endorsed by, Microsoft.</p>
+  </main>
+
+  <script src="/phone.js"></script>
+  <script src="/app.js?v=site1"></script>
+  <script src="/home.js?v=trail9"></script>
+  <script src="/footer.js"></script>
+  <script src="/consent.js"></script>
+  <script src="/logo-anim.js"></script>
+</body>
+</html>

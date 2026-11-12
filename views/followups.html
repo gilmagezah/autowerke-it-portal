@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Follow-ups</title>
+  <link rel="icon" href="/brand/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/brand/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="/brand/autowerke-icon-light.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/followups.css">
+</head>
+<body class="theme" data-page="followups">
+  <main class="admin-wrap">
+    <header class="band">
+      <div class="band-title">
+        <h1>Follow-ups</h1>
+        <div class="band-sub">Payments due · reminders to you · emails to clients</div>
+      </div>
+      <div class="band-stats"></div>
+    </header>
+
+    <div class="fu-toolbar">
+      <label class="fu-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+        <input type="search" id="fuSearch" placeholder="Search company, reference, email, note">
+      </label>
+      <div class="seg" id="fuFilter">
+        <button data-value="all">All</button>
+        <button data-value="open" class="on">Open</button>
+        <button data-value="paid">Paid</button>
+      </div>
+      <button type="button" class="btn-outline fu-new" id="fuNew">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        New follow-up
+      </button>
+    </div>
+
+    <div id="fuEditor"></div>
+
+    <div class="fu-register">
+      <div class="fu-head">
+        <span>Due</span><span>No.</span><span>Company / note</span><span>Reminder to you</span><span class="fu-c">✓</span><span class="fu-r">Amount</span><span></span>
+      </div>
+      <div id="fuRows"><p class="empty-state" style="padding:24px;">Loading...</p></div>
+    </div>
+    <div class="fu-foot" id="fuFoot"></div>
+  </main>
+
+  <div class="fu-modal hidden" id="fuModal" role="dialog" aria-modal="true" aria-labelledby="fuModalTitle"></div>
+
+  <script src="/admin-shell.js"></script>
+  <script src="/followups.js"></script>
+  <script src="/admin-health.js"></script>
+</body>
+</html>

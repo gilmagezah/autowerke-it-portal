@@ -1,0 +1,12 @@
+# The public demo (made-up data, nothing sent anywhere): New > Blueprint on Render, pick this repo.
+# It never touches a real database or email account and needs no secrets. Don't add an
+# ANTHROPIC_API_KEY here: a public demo would let anyone spend it.
+services:
+  - type: web
+    name: autowerke-it-demo
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm run demo
+    healthCheckPath: /demo
+    autoDeploy: true

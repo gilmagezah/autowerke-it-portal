@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Project Reviews</title>
+  <link rel="icon" href="/brand/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/brand/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="/brand/autowerke-icon-light.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/admin.css?v=tiles6">
+  <link rel="stylesheet" href="/timeline.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/theme.css?v=tiles6">
+</head>
+<body class="theme" data-page="pipeline">
+  <main class="admin-wrap">
+
+
+    <header class="band">
+      <div class="band-title">
+        <h1>Pipeline</h1>
+        <div class="band-sub">New requests · reviews · estimates · work in progress</div>
+      </div>
+      <div class="band-stats"></div>
+    </header>
+
+    <!-- Categories: click a tile to open its list below -->
+    <div class="pipe-tiles" id="pipeTiles" role="group" aria-label="Pipeline categories"></div>
+    <p class="pipe-hint" id="pipeHint">Choose a category to open it.</p>
+
+    <div id="filterBanner" class="filter-banner hidden"></div>
+
+    <section class="pipe-panel hidden" id="panel-reviews" data-cat="reviews" aria-labelledby="title-reviews">
+      <div class="pipe-panel-head">
+        <h2 class="section-title" id="title-reviews">Pending Reviews</h2>
+        <button type="button" class="pipe-close" data-close="reviews">Close</button>
+      </div>
+      <p class="sub">Edit the AI draft if needed, then approve to send it to the client for confirmation.</p>
+      <div id="list">Loading...</div>
+    </section>
+
+    <section class="pipe-panel hidden" id="panel-changes" data-cat="changes" aria-labelledby="title-changes">
+      <div class="pipe-panel-head">
+        <h2 class="section-title" id="title-changes">Changes Requested</h2>
+        <button type="button" class="pipe-close" data-close="changes">Close</button>
+      </div>
+      <p class="sub">The client wants something changed. Update the scope below, then send the revised version back for them to confirm.</p>
+      <div id="changesList">Loading...</div>
+    </section>
+
+    <section class="pipe-panel hidden" id="panel-pricing" data-cat="pricing" aria-labelledby="title-pricing">
+      <div class="pipe-panel-head">
+        <h2 class="section-title" id="title-pricing">Awaiting Pricing (IT Project)</h2>
+        <button type="button" class="pipe-close" data-close="pricing">Close</button>
+      </div>
+      <p class="sub">Client confirmed the scope. Enter an estimate to send them.</p>
+      <div id="pricingList">Loading...</div>
+    </section>
+
+    <section class="pipe-panel hidden" id="panel-estimate" data-cat="estimate" aria-labelledby="title-estimate">
+      <div class="pipe-panel-head">
+        <h2 class="section-title" id="title-estimate">Awaiting Estimate (IT Support)</h2>
+        <button type="button" class="pipe-close" data-close="estimate">Close</button>
+      </div>
+      <p class="sub">Client confirmed the situation. Enter estimated hours and rate.</p>
+      <div id="estimateList">Loading...</div>
+    </section>
+
+    <section class="pipe-panel hidden" id="panel-progress" data-cat="progress" aria-labelledby="title-progress">
+      <div class="pipe-panel-head">
+        <h2 class="section-title" id="title-progress">In Progress (log hours)</h2>
+        <button type="button" class="pipe-close" data-close="progress">Close</button>
+      </div>
+      <p class="sub">Client approved the estimate. Log time as work happens.</p>
+      <div id="inProgressList">Loading...</div>
+    </section>
+
+    <section class="pipe-panel hidden" id="panel-signoff" data-cat="signoff" aria-labelledby="title-signoff">
+      <div class="pipe-panel-head">
+        <h2 class="section-title" id="title-signoff">Awaiting Client Sign-off (support)</h2>
+        <button type="button" class="pipe-close" data-close="signoff">Close</button>
+      </div>
+      <p class="sub">Work is done and the completion sign-off has been sent. The ticket completes, and counts as earned, when the client uploads the signed copy.</p>
+      <div id="supportSignoffList">Loading...</div>
+    </section>
+
+    <h2 class="section-title">Overview</h2>
+    <div class="stat-cards" id="statCards"></div>
+
+    <h2 class="section-sub">By company</h2>
+    <p class="sub">Click a company to filter everything above. Click it again to clear.</p>
+    <div class="company-table-wrap">
+      <table class="company-table" id="companyTable"></table>
+    </div>
+  </main>
+
+  <script src="/admin-shell.js"></script>
+  <script src="/timeline.js"></script>
+  <script src="/pipeline-summary.js?v=tiles6"></script>
+  <script src="/admin.js?v=tiles6"></script>
+  <script src="/admin-health.js"></script>
+</body>
+</html>

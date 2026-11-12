@@ -1,0 +1,407 @@
+.admin-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 16px;
+}
+
+.admin-wrap h1 { font-size: 22px; margin-bottom: 4px; }
+.admin-wrap .sub { color: #666; font-size: 14px; margin-bottom: 24px; }
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.card h3 { margin: 0 0 4px; font-size: 16px; }
+.card .meta { font-size: 12px; color: #888; margin-bottom: 12px; }
+
+.card label {
+  display: block;
+  font-size: 13px;
+  color: #444;
+  margin: 12px 0 4px;
+}
+
+.card textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.card .req-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.card .req-item input {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.approve-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #888;
+  padding: 40px 0;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.confirm-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-confirm { background: #16a34a; color: #fff; }
+.btn-changes { background: #f3f4f6; color: #333; border: 1px solid #ccc; }
+
+/* ---------- Overview stats ---------- */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 640px) {
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.stat-card .stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1c1e21;
+}
+
+.stat-card .stat-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.stat-card.accent .stat-value { color: #2563eb; }
+
+.section-sub { font-size: 16px; margin: 0 0 4px; }
+
+.company-table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.company-table th,
+.company-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.company-table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #888;
+  font-weight: 600;
+}
+
+.company-table td.num,
+.company-table th.num { text-align: right; }
+
+.company-table tbody tr { cursor: pointer; }
+.company-table tbody tr:hover { background: #f7f8fa; }
+.company-table tbody tr.selected { background: #eef4ff; }
+.company-table tbody tr:last-child td { border-bottom: none; }
+
+.active-pill {
+  display: inline-block;
+  min-width: 22px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef4ff;
+  color: #1e3a8a;
+  font-weight: 600;
+  text-align: center;
+}
+
+.active-pill.zero { background: #f3f4f6; color: #999; }
+
+.filter-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #eef4ff;
+  color: #1e3a8a;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.filter-banner.hidden { display: none; }
+
+.filter-banner button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+/* ---------- Admin navigation ---------- */
+.admin-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: #fff;
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  width: fit-content;
+}
+
+.admin-nav a {
+  padding: 8px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  color: #444;
+  text-decoration: none;
+}
+
+.admin-nav a:hover { background: #f3f4f6; }
+.admin-nav a.active { background: #2563eb; color: #fff; }
+
+/* ---------- Scope editor extras ---------- */
+.change-request {
+  background: #fff8e6;
+  border: 1px solid #d97706;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 12px 0;
+  font-size: 14px;
+  color: #5c3d06;
+}
+
+.change-request-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+  color: #92620a;
+}
+
+.card .req-item .remove-req {
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  color: #999;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.card .req-item .remove-req:hover { color: #c33; border-color: #f0c4c4; }
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.link-btn:hover { text-decoration: underline; }
+
+/* ---------- Project titles in the pipeline ---------- */
+.card .title-input-inline {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  margin-bottom: 12px;
+}
+
+.card-title-line {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  margin: -2px 0 4px;
+}
+
+.so-hint { font-weight: normal; color: #888; }
+
+/* ---------- Brand ---------- */
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.admin-brand img { display: block; height: auto; }
+
+.admin-brand span {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  border-left: 1px solid #ddd;
+  padding-left: 10px;
+}
+
+/* ---------- Pricing value ---------- */
+.value-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 4px 0 4px;
+}
+
+.card .value-row label { margin: 0; }
+
+.card .value-input {
+  display: block;
+  width: 170px;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.card .vat-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding-bottom: 9px;
+}
+
+.value-preview { font-size: 13px; color: #1a7a3f; font-weight: 600; padding-bottom: 9px; }
+
+/* ---------- Convert to project ---------- */
+.convert-wrap { margin-top: 12px; border-top: 1px dashed #e5e7eb; padding-top: 10px; }
+.convert-toggle { font-size: 12px; color: #92620a; }
+
+.convert-panel {
+  background: #fff8e6;
+  border: 1px solid #f5d991;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.convert-title { font-weight: 700; font-size: 14px; color: #5c3d06; margin-bottom: 2px; }
+
+.convert-actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+
+.btn-convert {
+  background: #d97706;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-convert:disabled { opacity: 0.6; }
+
+/* ---------- Database health banner ---------- */
+.health-banner {
+  background: #fdeeee;
+  border: 1px solid #f2b8b8;
+  color: #7a1c1c;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+.health-banner.ok { background: #eafaf0; border-color: #b7e4c7; color: #1a7a3f; }
+.health-banner ul { margin: 8px 0 10px; padding-left: 18px; }
+.health-banner li { margin: 4px 0; }
+.health-banner code { background: #fff; border: 1px solid #f2b8b8; border-radius: 4px; padding: 1px 5px; font-size: 12px; user-select: all; }
+
+.health-recheck {
+  background: #7a1c1c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ---------- Support completion sign-off ---------- */
+.complete-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; }
+.complete-row .approve-btn { margin-top: 0; }
+
+.signoff-summary {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: #F4F2EE;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.signoff-waiting {
+  font-size: 13px;
+  background: #fff8e6;
+  color: #92620a;
+  border-radius: 6px;
+  padding: 8px 12px;
+}

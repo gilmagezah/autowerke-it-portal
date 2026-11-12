@@ -1,0 +1,88 @@
+.so-lede { font-size: 14px; color: var(--ink-2); margin: 0 0 14px; }
+.theme.client #codeStep .link-btn { display: block; margin: 10px auto 0; }
+
+/* Document layout (like the reference: side nav + banded sections) */
+.so-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); min-height: 100vh; margin: -32px -16px -24px; }
+.so-side { position: sticky; top: 0; height: 100vh; background: var(--card); border-right: 1px solid var(--line-soft); padding: 26px 18px; display: flex; flex-direction: column; gap: 18px; }
+.so-nav { display: flex; flex-direction: column; gap: 2px; }
+.so-nav a { padding: 9px 10px; border-radius: 7px; color: var(--ink-2); text-decoration: none; font-size: 13.5px; }
+.so-nav a:hover, .so-nav a.on { background: var(--green-soft); color: var(--green); font-weight: 600; }
+.so-timer { margin-top: auto; background: var(--paper); border: 1px solid var(--line-soft); border-radius: 10px; padding: 12px 14px; }
+.so-timer-label { font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.so-timer-value { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--green); }
+.so-timer-bar { height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+.so-timer-bar div { height: 100%; background: var(--green); width: 100%; transition: width 1s linear; }
+.so-timer.warn .so-timer-value { color: #A06414; } .so-timer.warn .so-timer-bar div { background: #A06414; }
+.so-timer.urgent .so-timer-value { color: var(--red); animation: so-pulse 1s ease-in-out infinite; } .so-timer.urgent .so-timer-bar div { background: var(--red); }
+@keyframes so-pulse { 50% { opacity: .55; } }
+.theme.client .so-leave { font-size: 12px; color: var(--muted); }
+
+.so-main { padding: 0 0 60px; }
+.so-section { scroll-margin-top: 10px; }
+.so-band { background: var(--green); color: var(--on-green); padding: 46px 8% 40px; position: relative; overflow: hidden; }
+.so-band::after { content: ''; position: absolute; right: -40px; top: -40px; width: 260px; height: 260px; border-radius: 50%; border: 1px solid rgba(244,241,232,.12); box-shadow: 0 0 0 30px rgba(244,241,232,.04), 0 0 0 60px rgba(244,241,232,.03); }
+.so-band h2 { font-family: var(--mono); font-size: 30px; line-height: 1.15; margin: 0; color: var(--on-green); max-width: 520px; }
+.so-band .band-sub { color: var(--on-green-muted); margin-top: 8px; }
+.so-body { padding: 30px 8% 10px; max-width: 860px; }
+.so-body p { font-size: 15px; line-height: 1.65; color: var(--ink); }
+.so-body h3 { font-family: var(--mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 22px 0 8px; }
+.so-body ul { margin: 0; padding-left: 20px; line-height: 1.7; }
+.so-warn { background: var(--amber-soft); border: 1px solid #E8D4A8; color: #6B430B; border-radius: 8px; padding: 10px 14px; font-size: 14px; margin: 14px 8% 0; display: none; }
+.so-warn.show { display: block; }
+
+.so-ledger { width: 100%; border-collapse: collapse; font-size: 14px; margin: 6px 0 14px; }
+.so-ledger th { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 8px 6px 8px 0; border-bottom: 1px solid var(--line); }
+.so-ledger td { padding: 9px 6px 9px 0; border-bottom: 1px solid var(--line-soft); font-family: var(--mono); font-size: 13px; }
+.so-ledger td.r, .so-ledger th.r { text-align: right; }
+.so-total td { border-top: 2px solid var(--green); border-bottom: none; font-weight: 700; font-size: 15px; }
+.so-phases { list-style: none; padding: 0 !important; }
+.so-phases li { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line-soft); font-family: var(--mono); font-size: 13.5px; }
+.so-phases li span:last-child { margin-left: auto; color: var(--muted); }
+.so-phases .tick { color: var(--green); font-weight: 700; }
+
+.so-checks label { display: flex !important; gap: 12px; align-items: flex-start; font-size: 14.5px !important; color: var(--ink) !important; background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 12px 14px; margin-bottom: 10px !important; cursor: pointer; line-height: 1.5; }
+.so-checks label:has(input:checked) { border-color: var(--green); background: #F7F9F4; }
+.so-checks input { accent-color: var(--green); width: 18px; height: 18px; margin: 2px 0 0 !important; flex-shrink: 0; }
+
+.so-sign { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+.so-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin: 6px 0 16px; }
+.so-tabs button { border: none; background: none; padding: 10px 14px; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.so-tabs button.on { color: var(--green); border-bottom-color: var(--green); }
+.so-typed { font-family: var(--mono); font-style: italic; font-weight: 700; font-size: 28px; overflow-wrap: anywhere; color: var(--ink); min-height: 50px; padding: 6px 4px; border-bottom: 1px solid var(--line); margin: 6px 0 4px; }
+.so-pad { position: relative; border: 1.5px dashed #B9C7B5; border-radius: 10px; background: #FCFDFB; touch-action: none; }
+.so-pad canvas { display: block; width: 100%; height: 180px; cursor: crosshair; }
+.so-pad .hint { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; color: var(--muted); font-size: 13px; pointer-events: none; }
+.so-pad .line { position: absolute; left: 24px; right: 24px; bottom: 44px; border-bottom: 1px solid #D9DDD2; pointer-events: none; }
+.theme.client .so-clear { font-size: 12px; margin-top: 6px; }
+.so-sigpreview img { max-height: 110px; max-width: 100%; border: 1px solid var(--line); border-radius: 8px; margin-top: 8px; background: #fff; }
+.so-docs-list { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); margin-top: 6px; }
+.theme.client .so-submit { width: 100%; padding: 15px; font-size: 13px; margin-top: 18px; }
+
+/* Done (like the "PAID" reference) */
+.theme.client .so-done { max-width: 900px; padding-top: 40px; }
+.so-done-grid { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; }
+.so-done-card { background: var(--card); border: 1px solid var(--line-soft); border-radius: 12px; padding: 40px 38px; min-height: 330px; box-shadow: 0 8px 30px rgba(31,38,34,.06); }
+.so-done-card h1 { font-family: var(--mono); font-size: 22px; margin: 26px 0 10px; }
+.so-done-card p { font-size: 15px; line-height: 1.6; }
+.so-done-stamp { background: var(--green); color: var(--on-green); border-radius: 10px; padding: 34px 26px; text-align: center; margin-left: -30px; box-shadow: 0 14px 34px rgba(31,38,34,.22); animation: so-stamp .5s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes so-stamp { from { transform: scale(.6) rotate(-6deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.so-done-stamp svg { width: 86px; height: 86px; }
+.so-done-amount { font-family: var(--mono); font-size: 26px; margin-top: 14px; }
+.so-done-word { font-family: var(--mono); font-size: 48px; font-weight: 700; letter-spacing: .06em; }
+.so-done-sub { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--on-green-muted); margin-top: 6px; }
+
+.so-expired { position: fixed; inset: 0; background: rgba(31,38,34,.6); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+.so-expired .secure-card { max-width: 400px; text-align: center; }
+
+@media (max-width: 860px) {
+  .so-layout { grid-template-columns: 1fr; margin: -32px -16px -24px; }
+  .so-side { position: sticky; height: auto; flex-direction: row; align-items: center; z-index: 5; padding: 10px 14px; gap: 12px; }
+  .so-side img, .so-nav, .so-leave { display: none; }
+  .so-timer { margin: 0; flex: 1; display: flex; align-items: center; gap: 12px; padding: 8px 12px; }
+  .so-timer-value { font-size: 20px; } .so-timer-bar { flex: 1; margin: 0; }
+  .so-done-grid { grid-template-columns: 1fr; } .so-done-stamp { margin: -20px 16px 0; }
+}
+
+/* .so-layout sets display:grid, which would otherwise beat the generic .hidden rule
+   (same weight, loaded later) and leave the document view showing at the wrong times */
+.so-layout.hidden, .so-done.hidden, #verifyView.hidden { display: none; }
